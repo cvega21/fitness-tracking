@@ -1,0 +1,61 @@
+.AppContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  border: 5px dotted blue;
+}
+
+.App {
+  text-align: center;
+  border: 5px dotted red;
+  align-self: center;
+  height: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+.componentContainer {
+  border: 2px solid pink;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.workoutIcons {
+  
+}
+
+.createUserContainer {
+  border: solid;
+
+}
+
+.createUserFormContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: solid 2px blue;
+}
+
+.createUserFormContainer > input {
+  height: 38px;
+}
+
+.createExerciseContainer {
+  border: solid 2px blue;
+}
+
+.exerciseLogContainer {
+  border: solid 2px mediumseagreen;
+}
+
+.userIcon {
+  font-size: large;
+}
+
+.btn-submit {
+  background-color: rgb(148, 114, 114)(204, 66, 66);
+  color: white;
+}
