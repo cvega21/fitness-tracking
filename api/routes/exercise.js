@@ -31,10 +31,28 @@ router.get('/users', function(req, res, next) {
     res.send(allUsersResponse);
   }
 
-  getAllUsers();
+  getAllUsers()
+  .then(() => {
+    mongoose.connection.close();
+  });
 });
 
-router.get('/log/:params?', function(req, res, next) {
+router.get('/log:params?', function(req, res, next) {
+  let userId = req.body.userId;
+  let from = req.body.from;
+  let to = req.body.to;
+  let limit = req.body.limit;
+
+  async function checkIfUserExists () {
+    console.log('Checking if User exists in DB...')
+    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    const asyncUserFinder = await UserModel.find({'_id': userId});
+    mongoose.connection.close();
+    return asyncUserFinder
+  }
+
+
+  
   res.send({_id: 'id', username: 'person', count: 1, log: [{description: 1, duration: 1, date: 0}]});
 });
 
@@ -62,12 +80,12 @@ router.post('/new-user', function(req, res, next) {
     console.log(newUser);
     
     // fix below: no using callbacks in then() save mongoose calls
-    newUser.save((err, user) => {
+    newUser.save()
+    .then((user, err) => {
       userId = user._id;
-    })
-    .then(() => {
       const userMinified = {'_id': userId, 'username': username}
       console.log('User was saved!');
+      console.log(user);
       mongoose.connection.close();
       res.send(userMinified);
     })
@@ -94,6 +112,11 @@ router.post('/new-user', function(req, res, next) {
 
 router.post('/add', function(req, res, next) {
   console.log(req.body.userId);
+  // check if user exists
+
+  // if user exists, add to the log array an object with description, duration and date
+    // if date is undefined, default to Date();
+
   res.send({userId: 'id', description: 'workout', duration: '30', date: '10/01/2021'});
 });
 
