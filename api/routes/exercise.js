@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
+const { DateTime } = require('luxon');
 require('dotenv').config();
 
 const userSchema = new mongoose.Schema({
@@ -37,11 +38,19 @@ router.get('/users', function(req, res, next) {
   });
 });
 
-router.get('/log:params?', function(req, res, next) {
-  let userId = req.body.userId;
-  let from = req.body.from;
-  let to = req.body.to;
-  let limit = req.body.limit;
+router.get('/log/:userId?', function(req, res, next) {
+  console.log(req.query)
+  let userId = req.query.userId;
+  let from = req.query.from;
+  let to = req.query.to;
+  let limit = req.query.limit;
+
+  checkIfDatesAreValid = (fromDate, toDate) => {
+    console.log('Checking if Dates are valid...');
+    if (from) {
+      console.log('"from" query param found...');
+    }
+  }
 
   async function checkIfUserExists () {
     console.log('Checking if User exists in DB...')
@@ -50,15 +59,22 @@ router.get('/log:params?', function(req, res, next) {
     mongoose.connection.close();
     return asyncUserFinder
   }
-
-
   
-  res.send({_id: 'id', username: 'person', count: 1, log: [{description: 1, duration: 1, date: 0}]});
+  checkIfUserExists()
+  .then((userFoundInDB) => {
+    let userExists = Object.keys(userFoundInDB).length;
+    if (userExists) {
+      console.log(`user: ${userFoundInDB[0].username} was found in the DB`)
+      res.send(userFoundInDB);
+    } else {
+      res.send(`userId: ${userId} was not found in the database!`);
+    }
+  })
 });
 
 router.post('/new-user', function(req, res, next) {
   let username = req.body.username;
-
+  
   async function checkIfUserExists () {
     console.log('Checking if User exists in DB...')
     await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -85,18 +101,17 @@ router.post('/new-user', function(req, res, next) {
       userId = user._id;
       const userMinified = {'_id': userId, 'username': username}
       console.log('User was saved!');
-      console.log(user);
       mongoose.connection.close();
       res.send(userMinified);
     })
     .catch(err => {
       console.log('uh oh. error while saving:');
-      res.send('it is working!');
+      res.send('error');
       console.error(err);
       mongoose.connection.close();
     })
   }
-
+  
   checkIfUserExists()
   .then((userFoundInDB) => {
     let userAlreadyExists = Object.keys(userFoundInDB).length;
@@ -111,13 +126,68 @@ router.post('/new-user', function(req, res, next) {
 });
 
 router.post('/add', function(req, res, next) {
-  console.log(req.body.userId);
-  // check if user exists
+  let userId = req.body.userId;
+  let description = req.body.description;
+  let duration = req.body.duration;
+  let date = DateTime.fromISO(req.body.date);
+  let newExerciseRecordLog = {"_id": userId, "description": description, "duration": duration, "date": ""}
+  
+  if (userId && description && duration) {
+    console.log('All required parameters are present.');
+  } else {
+    console.log('Missing one or more required parameters');
+    res.send('Please submit request again with required parameters: userId, description and duration');
+    return
+  }
 
-  // if user exists, add to the log array an object with description, duration and date
-    // if date is undefined, default to Date();
+  console.log('Validating date...')
+  if (date.toISODate()) {
+    console.log(`${date} is a valid date`);
+    console.log(date.toISODate())
+    newExerciseRecordLog.date = date.toISODate();
+  } else {
+    console.log(`Date was either undefined or not a valid date. Using today's date: ${DateTime.now().toISODate()}`)
+    newExerciseRecordLog.date = DateTime.now().toISODate();
+  }
 
-  res.send({userId: 'id', description: 'workout', duration: '30', date: '10/01/2021'});
+  console.log(`Exercise record to be added in log:`)
+  console.log(newExerciseRecordLog);
+
+  async function checkIfUserExists () {
+    console.log('Opening MongoDB Atlas connection...')
+    console.log('Checking if User exists in DB...')
+    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    const asyncUserFinder = await UserModel.findOne({'_id': userId});
+    return asyncUserFinder
+  }
+  
+  async function run () {
+    const userFoundInDB = await checkIfUserExists();
+    let userExists = Object.keys(userFoundInDB).length;
+    if (userExists) {
+      console.log(`User record found in the DB: ${userFoundInDB}`);
+      console.log('adding new exercise record to log...')
+      try {
+        userFoundInDB.log.push(newExerciseRecordLog);
+        userFoundInDB.count = userFoundInDB.log.length;
+        console.log(userFoundInDB.log);
+        await userFoundInDB.save();
+        let responseWithUsername = newExerciseRecordLog;
+        responseWithUsername.username = userFoundInDB.username;
+        res.send(responseWithUsername);
+        console.log('Closing MongoDB connection...')
+        await mongoose.connection.close();
+        return 
+      } catch (err) {
+        console.error('unexpected error encontered.')
+        console.error(err);
+      }
+    } else {
+      res.send(`userId: ${userId} was not found in the database!`);
+    }
+  }
+
+  run();
 });
 
 
