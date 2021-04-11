@@ -95,7 +95,6 @@ router.post('/new-user', function(req, res, next) {
     console.log('New user Model has been created successfully.');
     console.log(newUser);
     
-    // fix below: no using callbacks in then() save mongoose calls
     newUser.save()
     .then((user, err) => {
       userId = user._id;
@@ -120,6 +119,7 @@ router.post('/new-user', function(req, res, next) {
       console.log(`This user already exists in the DB: ${existingUserRecord}`);
       res.send(existingUserRecord);
     } else {
+      console.log(`User not found. Creating new user...`)
       createUser();
     }
   })
