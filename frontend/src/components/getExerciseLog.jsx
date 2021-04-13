@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-bootstrap';
@@ -12,6 +12,12 @@ const GetExerciseLog = () => {
     setUserId(e.target.value)
   }
   
+  useEffect(() => {
+    if (userIsLoading) {
+
+    }
+  })
+
   return (
     <div className="exerciseLogContainer">
       <h3>Search Your Workout History</h3>
@@ -21,7 +27,10 @@ const GetExerciseLog = () => {
       <p>To:</p>
       <input type="date"></input>
       <p></p>
-      <Button variant="danger">Search</Button>
+      <Button
+        variant="dark"
+        disabled={userIsLoading}
+        >Search</Button>
     </div>
   )
 }

@@ -41,17 +41,31 @@ router.get('/users', function(req, res, next) {
 router.get('/log/:userId?', function(req, res, next) {
   console.log(req.query)
   let userId = req.query.userId;
-  let from = req.query.from;
-  let to = req.query.to;
-  let limit = req.query.limit;
+  let from = DateTime.fromISO(req.query.from);
+  let to = DateTime.fromISO(req.query.to);
+  let limit = Infinity;
 
-  checkIfDatesAreValid = (fromDate, toDate) => {
-    console.log('Checking if Dates are valid...');
-    if (from) {
-      console.log('"from" query param found...');
-    }
+  console.log('Validating parameters...')
+  if (parseInt(req.query.limit)) {
+    limit = req.query.limit;
+  } else {
+    limit = Infinity;
   }
 
+  if (from.toISODate() && from.toISODate() <= DateTime.now().toISODate()) {
+    // query is good
+  } else {
+    from = "0000-00-00";
+  }
+
+  if (to.toISODate()) {
+    // query is good
+  } else {
+    to = DateTime.now().toISODate();
+  }
+
+  console.log(`final parameters: limit: ${limit}, from: ${from}, to: ${to}`)
+  
   async function checkIfUserExists () {
     console.log('Checking if User exists in DB...')
     await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -64,7 +78,21 @@ router.get('/log/:userId?', function(req, res, next) {
   .then((userFoundInDB) => {
     let userExists = Object.keys(userFoundInDB).length;
     if (userExists) {
-      console.log(`user: ${userFoundInDB[0].username} was found in the DB`)
+      console.log(`user: ${userFoundInDB[0].username} was found in the DB`);
+      let exerciseLog = userFoundInDB[0].log;
+      let newExerciseLog = [];
+      let i = 0;
+      while (i < limit && i < exerciseLog.length) {
+        let dateFromLog = new Date(exerciseLog[i].date);
+        dateFromLog = dateFromLog.toISOString();
+        dateFromLog = DateTime.fromISO(dateFromLog);
+        if (dateFromLog > from && dateFromLog < to) {
+          newExerciseLog.push(exerciseLog[i]);
+        }
+        i++;        
+      }
+      console.log(`originalExerciseLog: ${exerciseLog}`);
+      console.log(`newExerciseLog: ${newExerciseLog}`);
       res.send(userFoundInDB);
     } else {
       res.send(`userId: ${userId} was not found in the database!`);
@@ -128,7 +156,7 @@ router.post('/new-user', function(req, res, next) {
 router.post('/add', function(req, res, next) {
   let userId = req.body.userId;
   let description = req.body.description;
-  let duration = req.body.duration;
+  let duration = parseInt(req.body.duration);
   let date = DateTime.fromISO(req.body.date);
   let newExerciseRecordLog = {"_id": userId, "description": description, "duration": duration, "date": ""}
   
@@ -140,8 +168,8 @@ router.post('/add', function(req, res, next) {
     return
   }
 
-  console.log('Validating date...')
-  if (date.toISODate()) {
+  console.log('Validating date...');
+  if (date.toISODate() && date.toISODate() <= DateTime.now().toISODate()) {
     console.log(`${date} is a valid date`);
     console.log(date.toISODate())
     newExerciseRecordLog.date = date.toISODate();
@@ -165,12 +193,12 @@ router.post('/add', function(req, res, next) {
     const userFoundInDB = await checkIfUserExists();
     let userExists = Object.keys(userFoundInDB).length;
     if (userExists) {
-      console.log(`User record found in the DB: ${userFoundInDB}`);
+      console.log(`User record found in the DB.`);
       console.log('adding new exercise record to log...')
       try {
         userFoundInDB.log.push(newExerciseRecordLog);
         userFoundInDB.count = userFoundInDB.log.length;
-        console.log(userFoundInDB.log);
+        // console.log(userFoundInDB.log);
         await userFoundInDB.save();
         let responseWithUsername = newExerciseRecordLog;
         responseWithUsername.username = userFoundInDB.username;
