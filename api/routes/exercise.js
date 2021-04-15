@@ -164,6 +164,7 @@ router.post('/add', function(req, res, next) {
     console.log('All required parameters are present.');
   } else {
     console.log('Missing one or more required parameters');
+    res.status(400);
     res.send('Please submit request again with required parameters: userId, description and duration');
     return
   }

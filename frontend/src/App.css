@@ -9,13 +9,13 @@
 
 .App {
   text-align: center;
-  border: 5px dotted red;
+  /* border: 5px dotted red; */
   display: flex;
   flex-direction: column;
 }
 
 .componentContainer {
-  border: 2px solid pink;
+  /* border: 2px solid pink; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -26,9 +26,9 @@
 }
 
 .createUserContainer, .createExerciseContainer, .exerciseLogContainer {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start; */
+  align-items: flex-start;
   border: solid 3px black;
   color: whitesmoke;
   border-radius: 10px;
