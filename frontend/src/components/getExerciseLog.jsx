@@ -5,32 +5,103 @@ import { Button } from 'react-bootstrap';
 
 const GetExerciseLog = () => {
   const [userId, setUserId] = useState('');
-  const [userIsLoading, setUserIsLoading] = useState(false);
-
-  const handleChange = (e) => {
-    console.log(e.target.value)
-    setUserId(e.target.value)
-  }
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
+  const [logsLimit, setLogsLimit] = useState('');
+  const [requestIsLoading, setRequestIsLoading] = useState(false);
+  const [requestWasSuccessful, setRequestWasSuccessful] = useState(false);
+  const [exerciseLogs, setExerciseLogs] = useState('');
+  const [jsxExerciseLog, setJsxExerciseLog] = useState('');
   
   useEffect(() => {
-    if (userIsLoading) {
+    if (exerciseLogs) {
 
     }
   })
 
+  const clearValues = () => {
+    setUserId('');
+    setFromDate('');
+    setToDate('');
+    setLogsLimit('');
+  }
+
+  const handleSubmit = async () => {
+    setRequestIsLoading(true);
+    let logUrl = new URL('http://localhost:9000/api/exercise/log');
+    let params = {'userId': userId, 'from': fromDate, 'to': toDate, 'limit': logsLimit};
+    Object.keys(params).forEach(key => logUrl.searchParams.append(key, params[key]))
+
+    let logResponse = await fetch(logUrl);
+    let jsonLogResponse = await logResponse.json();
+    if (logResponse.status === 200) {
+      setRequestWasSuccessful(true);
+      setTimeout(() => {
+        setRequestWasSuccessful(false);
+      }, 2000);
+      clearValues();
+    } else {
+      alert('Someting went wrong.');
+      console.error(logResponse);
+    }
+    let mappedResponse = jsonLogResponse[0].log.map((log) => {
+             <li 
+              key={log._id}
+              value={log} />
+    })
+    setJsxExerciseLog(mappedResponse)
+    setRequestIsLoading(false);
+
+    setExerciseLogs(jsxExerciseLog);
+    console.log(jsonLogResponse[0].log);
+    console.log(mappedResponse);
+    return logResponse
+  }
+
   return (
     <div className="exerciseLogContainer">
       <h3>Search Your Workout History</h3>
-      <input value={userId} placeholder="Enter your name" onChange={handleChange}></input>
-      <p>From:</p>
-      <input type="date"></input>
-      <p>To:</p>
-      <input type="date"></input>
-      <p></p>
+      <div>
+        <h6>Type Your User ID:</h6>
+        <input
+          value={userId}
+          placeholder="User ID"
+          onChange={e => setUserId(e.target.value)}
+        />      
+      </div>
+      <div className="optionalLogCriteriaContainer">
+        <p>From:</p>
+        <input
+          type="date"
+          value={fromDate}
+          onChange={e => setFromDate(e.target.value)}
+        />    
+      </div>
+      <div>
+        <p>To:</p>
+        <input
+          type="date"
+          value={toDate}
+          onChange={e => setToDate(e.target.value)}
+        />    
+      </div>
+      <div>
+        <p>Limit:</p>
+        <input
+          type="number"
+          value={logsLimit}
+          placeholder="5"
+          onChange={e => setLogsLimit(e.target.value)}
+        />
+      </div>
       <Button
         variant="dark"
-        disabled={userIsLoading}
+        disabled={requestIsLoading}
+        onClick={handleSubmit}
         >Search</Button>
+      <ul className="logResponseContainer">
+        {jsxExerciseLog}
+      </ul>
     </div>
   )
 }

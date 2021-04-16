@@ -55,13 +55,13 @@ router.get('/log/:userId?', function(req, res, next) {
   if (from.toISODate() && from.toISODate() <= DateTime.now().toISODate()) {
     // query is good
   } else {
-    from = "0000-00-00";
+    from = DateTime.fromISO('1900-01-01');
   }
 
   if (to.toISODate()) {
     // query is good
   } else {
-    to = DateTime.now().toISODate();
+    to = DateTime.now();
   }
 
   console.log(`final parameters: limit: ${limit}, from: ${from}, to: ${to}`)
@@ -69,9 +69,14 @@ router.get('/log/:userId?', function(req, res, next) {
   async function checkIfUserExists () {
     console.log('Checking if User exists in DB...')
     await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-    const asyncUserFinder = await UserModel.find({'_id': userId});
-    mongoose.connection.close();
-    return asyncUserFinder
+    try {
+      const asyncUserFinder = await UserModel.find({'_id': userId});
+      return asyncUserFinder
+    } catch (e) {
+      console.error(e)
+    } finally {
+      mongoose.connection.close();
+    }
   }
   
   checkIfUserExists()
@@ -91,6 +96,7 @@ router.get('/log/:userId?', function(req, res, next) {
         }
         i++;        
       }
+      userFoundInDB[0].log = newExerciseLog;
       console.log(`originalExerciseLog: ${exerciseLog}`);
       console.log(`newExerciseLog: ${newExerciseLog}`);
       res.send(userFoundInDB);
