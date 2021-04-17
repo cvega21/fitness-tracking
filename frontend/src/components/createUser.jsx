@@ -2,12 +2,39 @@ import React, { useState, useEffect } from 'react'
 import path from 'path'
 import { Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard } from '@fortawesome/free-regular-svg-icons';
+
+const userIdOnSuccess = (userId) => {
+  const copyUserId = () => {
+    navigator.clipboard.writeText(userId);
+    setTimeout(() => {
+      console.log('hi')
+    },2500);
+  }
+  
+  return (
+    <div className={'userIdResponseContainer'}>
+      <div>
+        <p><b>Your UserID is: </b>{userId}</p>
+
+      </div>
+      <div id={'userIdClipboard'} onClick={navigator.clipboard.writeText(userId)}>
+        <FontAwesomeIcon
+          icon={faClipboard}
+          size="2x"
+        />
+        <p>copy to clipboard</p>
+      </div>
+    </div>    
+  )
+}
 
 const CreateUser = () => {
   const [user, setUser] = useState('');
   const [userIsLoading, setUserIsLoading] = useState(false);
   const [userId, setUserId] = useState('');
+  const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
   const handleChange = (e) => {
     setUser(e.target.value)
@@ -27,7 +54,7 @@ const CreateUser = () => {
       body: JSON.stringify({username: user})
     })
     let jsonResponse = await userPostResponse.json();
-    setUserId(`Your User ID is: ${jsonResponse._id}`);
+    setUserId(jsonResponse._id);
     return jsonResponse
   }
   
@@ -39,9 +66,17 @@ const CreateUser = () => {
     }
   })
 
+  const copyUserId = () => {
+    setCopiedToClipboard(true);
+    navigator.clipboard.writeText(userId);
+    setTimeout(() => {
+      setCopiedToClipboard(false);
+    },2000);
+  }
+
   return (
     <div className="createUserContainer">
-      <h3>Create Your Profile</h3>
+      <h2>Create Your Profile</h2>
       <div className="createUserFormContainer">
         <FontAwesomeIcon icon={faUserCircle} size="2x"/>
         <input 
@@ -57,10 +92,32 @@ const CreateUser = () => {
           {userIsLoading ? 'Loading...' : 'Submit'}
         </Button>
       </div>
+      {userId &&     
+      <div className={'userIdResponseContainer'}>
       <div>
-        <p></p>
-        <p>{userId}</p>
-      </div>      
+        <p><b>Your UserID is: </b>{userId}</p>
+      </div>
+      <div id={'userIdClipboard'} onClick={copyUserId}>
+        {!copiedToClipboard &&
+          <div>
+            <FontAwesomeIcon
+              icon={faClipboard}
+              size="2x"
+            />
+            <p>copy to clipboard</p>
+          </div>
+        }
+        {copiedToClipboard &&
+          <div color='green'>
+            <FontAwesomeIcon
+              icon={faCheck}
+              size="2x"
+            />
+            <p>Copied!</p>
+          </div>
+        }
+      </div>
+    </div>}      
     </div>
   )
 }

@@ -41,6 +41,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  width: 65%;
 }
 
 .createUserFormContainer > input {
@@ -51,12 +52,41 @@
   /* background-image: linear-gradient( 109.6deg,  rgba(162,2,63,1) 11.2%, rgba(231,62,68,1) 53.6%, rgba(255,129,79,1) 91.1% ); */
 }
 
+.userIdResponseContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%
+}
+
+#userIdClipboard:hover {
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+}
+
+#userIdClipboard {
+  height: 70px;
+  width: 80px;
+  font-size: small;
+}
+
 .createExerciseContainer {
   /* background-image: linear-gradient( 135deg, #F05F57 10%, #360940 100%); */
 }
 
 .exerciseLogContainer {
   /* background-image: linear-gradient( 135deg, #4edb4e 10%, #166600 100%); */
+}
+
+.workoutBottomContainer {
+  /* border: dotted; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* width: 100%; */
+}
+
+.logInputContainer {
+  border: solid 2px magenta;
 }
 
 .userIcon {

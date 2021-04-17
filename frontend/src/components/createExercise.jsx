@@ -66,7 +66,7 @@ const CreateExercise = () => {
 
   return (
     <div className="createExerciseContainer">
-      <h3>Track A Workout</h3>
+      <h2>Track A Workout</h2>
       <div>
         <h6>Type your User ID:</h6>
         <input           
@@ -105,35 +105,37 @@ const CreateExercise = () => {
           </Button>
         </ButtonGroup>
       </div>
-      <div>
-        <h6>How long was it? (minutes)</h6>
-        <input
-          value={duration}
-          placeholder="30"
-          onChange={e => setDuration(e.target.value)}
+      <div className='workoutBottomContainer'>
+        <div>
+          <h6>How long was it? (minutes)</h6>
+          <input
+            value={duration}
+            placeholder="30"
+            onChange={e => setDuration(e.target.value)}
+            />
+        </div>
+        <div>
+          <h6>When was it?</h6>
+          <input 
+            type="date"
+            value={workoutDate}
+            onChange={e => setWorkoutDate(e.target.value)}
           />
+        </div>
+        <Button 
+          variant="dark"
+          onClick={exerciseIsLoading ? null : handleSubmit}
+          disabled={exerciseIsLoading}
+        >
+          {exerciseIsLoading ? 'Loading...' : 'Submit'}
+        </Button>
+        {requestWasSuccessful && 
+        <div>
+          <p>Success!</p>
+          <FontAwesomeIcon icon={faCheck} size="2x"/>
+        </div>
+        }
       </div>
-      <div>
-        <h6>When was it?</h6>
-        <input 
-          type="date"
-          value={workoutDate}
-          onChange={e => setWorkoutDate(e.target.value)}
-        />
-      </div>
-      <Button 
-        variant="dark"
-        onClick={exerciseIsLoading ? null : handleSubmit}
-        disabled={exerciseIsLoading}
-      >
-        {exerciseIsLoading ? 'Loading...' : 'Submit'}
-      </Button>
-      {requestWasSuccessful && 
-      <div>
-        <p>Success!</p>
-        <FontAwesomeIcon icon={faCheck} size="2x"/>
-      </div>
-      }
     </div>
   )
 }

@@ -11,11 +11,11 @@ const GetExerciseLog = () => {
   const [requestIsLoading, setRequestIsLoading] = useState(false);
   const [requestWasSuccessful, setRequestWasSuccessful] = useState(false);
   const [exerciseLogs, setExerciseLogs] = useState('');
-  const [jsxExerciseLog, setJsxExerciseLog] = useState('');
+  const [jsxExerciseLog, setJsxExerciseLog] = useState([]);
   
   useEffect(() => {
     if (exerciseLogs) {
-
+      
     }
   })
 
@@ -44,32 +44,32 @@ const GetExerciseLog = () => {
       alert('Someting went wrong.');
       console.error(logResponse);
     }
-    let mappedResponse = jsonLogResponse[0].log.map((log) => {
-             <li 
-              key={log._id}
-              value={log} />
-    })
-    setJsxExerciseLog(mappedResponse)
+    setJsxExerciseLog(jsonLogResponse[0].log)
+    console.log(Array.isArray(jsxExerciseLog));
     setRequestIsLoading(false);
-
-    setExerciseLogs(jsxExerciseLog);
-    console.log(jsonLogResponse[0].log);
-    console.log(mappedResponse);
+    // let mappedResponse = jsonLogResponse[0].log.map((log) => {
+    //          <li 
+    //           key={log._id}
+    //           value={log} />
+    // })
+    // setExerciseLogs(jsxExerciseLog);
+    // console.log(jsonLogResponse[0].log);
+    // console.log(mappedResponse);
     return logResponse
   }
 
   return (
     <div className="exerciseLogContainer">
-      <h3>Search Your Workout History</h3>
-      <div>
+      <h2>Search Your Workout History</h2>
+      <div className="logInputContainer">
         <h6>Type Your User ID:</h6>
         <input
           value={userId}
           placeholder="User ID"
           onChange={e => setUserId(e.target.value)}
         />      
-      </div>
-      <div className="optionalLogCriteriaContainer">
+      </div >
+      <div className="logInputContainer">
         <p>From:</p>
         <input
           type="date"
@@ -77,7 +77,7 @@ const GetExerciseLog = () => {
           onChange={e => setFromDate(e.target.value)}
         />    
       </div>
-      <div>
+      <div className="logInputContainer">
         <p>To:</p>
         <input
           type="date"
@@ -85,7 +85,7 @@ const GetExerciseLog = () => {
           onChange={e => setToDate(e.target.value)}
         />    
       </div>
-      <div>
+      <div className="logInputContainer">
         <p>Limit:</p>
         <input
           type="number"
@@ -100,7 +100,10 @@ const GetExerciseLog = () => {
         onClick={handleSubmit}
         >Search</Button>
       <ul className="logResponseContainer">
-        {jsxExerciseLog}
+        {jsxExerciseLog.map((log, index) => (
+            <li value={log} key={index}>{log.description}</li>
+          )
+        )}
       </ul>
     </div>
   )
