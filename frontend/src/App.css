@@ -114,7 +114,7 @@
 .customExerciseButton > input {
   margin: 10px 0px 0px 0px;
   width: 75px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .workoutIconsButtonGroup {

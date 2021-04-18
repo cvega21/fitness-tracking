@@ -7,7 +7,7 @@ const CreateExercise = () => {
   const [userId, setUserId] = useState('');
   const [selectedExerciseIndex, setSelectedExerciseIndex] = useState([0,0,0,0,0]);
   const [actualExerciseType, setActualExerciseType] = useState('');
-  const [customExerciseValue, setCustomExerciseValue] = useState('');
+  const [customExerciseValue, setCustomExerciseValue] = useState('hello');
   const [duration, setDuration] = useState('');
   const [workoutDate, setWorkoutDate] = useState('');
   const [exerciseIsLoading, setExerciseIsLoading] = useState(false);
@@ -95,14 +95,20 @@ const CreateExercise = () => {
             <FontAwesomeIcon icon={faRunning} size="2x"/>
             <p>Running</p>
           </Button>
-          <Button variant="outline-light" active={selectedExerciseIndex[4]} id="4" onClick={(e) => {makeButtonActive(e); document.getElementById('customInputField').focus()} } >
+          <Button variant="outline-light" active={selectedExerciseIndex[4]} id="4" className="other" onClick={(e) => {makeButtonActive(e); document.getElementById('customInputField').focus()} } >
             <div className="customExerciseButton">
               <FontAwesomeIcon icon={faKeyboard} size="2x"/>
               <input
                 placeholder='custom'
                 id='customInputField'
                 value={customExerciseValue}
-                onChange={e => setCustomExerciseValue(e.target.value)}
+                onChange={e => {
+                  console.log('hey');
+                  console.log(e);
+                  console.log(e.target);
+                  console.log(e.target.value);
+                  setCustomExerciseValue(e.target.value);
+                }}
               />
             </div>
           </Button>
