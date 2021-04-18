@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
 .AppContainer {
   display: flex;
   align-items: flex-start;
@@ -9,26 +11,19 @@
 
 .App {
   text-align: center;
-  /* border: 5px dotted red; */
   display: flex;
   flex-direction: column;
 }
 
-.componentContainer {
-  /* border: 2px solid pink; */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+.componentContainer > div {
+  margin: 50px 0px 50px 0px;
 }
 
-.workoutIcons {
-  
-}
-
-.createUserContainer, .createExerciseContainer, .exerciseLogContainer {
+.createUserContainer, .createExerciseContainer, .getExerciseLogContainer {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  width: 100%;
   border: solid 3px black;
   color: whitesmoke;
   border-radius: 10px;
@@ -37,46 +32,107 @@
   background-image: linear-gradient( 109.6deg,  rgba(162,2,63,1) 11.2%, rgba(231,62,68,1) 53.6%, rgba(255,129,79,1) 91.1% );
 }
 
+.userInputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
+  height: 100px;
+  margin: 10px 0px 20px 0px;
+}
+
+/* First screen */
+
 .createUserFormContainer {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-evenly;
-  width: 65%;
+  width: 80%;
+  height: 150px;
+  margin: 10px 0px 20px 0px;
 }
 
 .createUserFormContainer > input {
   height: 38px;
 }
 
-.createUserContainer {
-  /* background-image: linear-gradient( 109.6deg,  rgba(162,2,63,1) 11.2%, rgba(231,62,68,1) 53.6%, rgba(255,129,79,1) 91.1% ); */
-}
-
 .userIdResponseContainer {
+  font-family: 'Roboto Mono', monospace;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  width: 90%
+  height: 50px;
+  box-shadow: 5px 5px 15px black;
+  border-radius: 5px;
+  margin: 30px 0px 20px 0px;
 }
 
-#userIdClipboard:hover {
+.userIdResponseContainer > div:nth-child(1) {
+  color: black;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 10px;
+}
+
+.userIdResponseContainer > div:nth-child(2) {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 10px;
+}
+
+.copyToClipboardContainer {
+   color: rgb(255, 255, 255);
+   background-color: rgb(0, 0, 0);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+   padding: 10px;
+}
+
+.copyToClipboardContainer:hover {
   cursor: pointer;
-  color: rgb(0, 0, 0);
 }
 
-#userIdClipboard {
-  height: 70px;
-  width: 80px;
-  font-size: small;
+/* Second screen */
+
+.customExerciseButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
 }
 
-.createExerciseContainer {
-  /* background-image: linear-gradient( 135deg, #F05F57 10%, #360940 100%); */
+.customExerciseButton > input {
+  margin: 10px 0px 0px 0px;
+  width: 75px;
+  text-align: center;
 }
 
-.exerciseLogContainer {
-  /* background-image: linear-gradient( 135deg, #4edb4e 10%, #166600 100%); */
+.workoutIconsButtonGroup {
+  height: 100px;
+  margin: 20px;
 }
+
+.workoutIconsButtonGroup > Button {
+  height: 100px;
+  padding: 15px;
+}
+
+.workoutIconsButtonGroup > Button > p{
+  margin: 10px 0px 0px 0px;
+}
+
+
+
 
 .workoutBottomContainer {
   /* border: dotted; */
@@ -86,7 +142,7 @@
 }
 
 .logInputContainer {
-  border: solid 2px magenta;
+  /* border: solid 2px magenta; */
 }
 
 .userIcon {

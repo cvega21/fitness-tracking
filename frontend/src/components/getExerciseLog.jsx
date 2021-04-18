@@ -59,17 +59,18 @@ const GetExerciseLog = () => {
   }
 
   return (
-    <div className="exerciseLogContainer">
+    <div className="getExerciseLogContainer">
       <h2>Search Your Workout History</h2>
-      <div className="logInputContainer">
+      
+      <div className="userInputContainer">
         <h6>Type Your User ID:</h6>
         <input
           value={userId}
           placeholder="User ID"
           onChange={e => setUserId(e.target.value)}
         />      
-      </div >
-      <div className="logInputContainer">
+      </div>
+      <div className="userInputContainer">
         <p>From:</p>
         <input
           type="date"
@@ -77,7 +78,7 @@ const GetExerciseLog = () => {
           onChange={e => setFromDate(e.target.value)}
         />    
       </div>
-      <div className="logInputContainer">
+      <div className="userInputContainer">
         <p>To:</p>
         <input
           type="date"
@@ -85,7 +86,7 @@ const GetExerciseLog = () => {
           onChange={e => setToDate(e.target.value)}
         />    
       </div>
-      <div className="logInputContainer">
+      <div className="userInputContainer">
         <p>Limit:</p>
         <input
           type="number"
@@ -101,7 +102,7 @@ const GetExerciseLog = () => {
         >Search</Button>
       <ul className="logResponseContainer">
         {jsxExerciseLog.map((log, index) => (
-            <li value={log} key={index}>{log.description}</li>
+            <li value={log} key={index}>{log.date}, {log.description}</li>
           )
         )}
       </ul>

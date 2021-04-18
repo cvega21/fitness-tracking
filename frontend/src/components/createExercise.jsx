@@ -41,7 +41,7 @@ const CreateExercise = () => {
       setRequestWasSuccessful(true);
       setTimeout(() => {
         setRequestWasSuccessful(false);
-      }, 2000);
+      }, 3000);
       clearValues();
     } else {
       alert('Someting went wrong.');
@@ -67,7 +67,8 @@ const CreateExercise = () => {
   return (
     <div className="createExerciseContainer">
       <h2>Track A Workout</h2>
-      <div>
+      
+      <div className="userInputContainer">
         <h6>Type your User ID:</h6>
         <input           
           value={userId}
@@ -75,10 +76,10 @@ const CreateExercise = () => {
           onChange={e => setUserId(e.target.value)}
         />
       </div>
-      <h6>Select Workout Type:</h6>
       <div className="workoutIcons">
-        <ButtonGroup>
-          <Button variant="outline-light" active={selectedExerciseIndex[0]} id="0" onClick={makeButtonActive} className="dumbbell">
+        <h6>Select Workout Type:</h6>
+        <ButtonGroup className="workoutIconsButtonGroup">
+          <Button variant="outline-light" active={selectedExerciseIndex[0]} id="0" onClick={makeButtonActive} className="gym">
             <FontAwesomeIcon icon={faDumbbell} size="2x"/>
             <p>Gym</p>
           </Button>
@@ -94,34 +95,37 @@ const CreateExercise = () => {
             <FontAwesomeIcon icon={faRunning} size="2x"/>
             <p>Running</p>
           </Button>
-          <Button variant="outline-light" active={selectedExerciseIndex[4]} id="4" onClick={(e) => {makeButtonActive(e); document.getElementById('customInputField').focus()} } className="other">
-            <FontAwesomeIcon icon={faKeyboard} size="2x"/>
-            <p>Custom</p>
-            <input
-              id='customInputField'
-              value={customExerciseValue}
-              onChange={e => setCustomExerciseValue(e.target.value)}
-            />
+          <Button variant="outline-light" active={selectedExerciseIndex[4]} id="4" onClick={(e) => {makeButtonActive(e); document.getElementById('customInputField').focus()} } >
+            <div className="customExerciseButton">
+              <FontAwesomeIcon icon={faKeyboard} size="2x"/>
+              <input
+                placeholder='custom'
+                id='customInputField'
+                value={customExerciseValue}
+                onChange={e => setCustomExerciseValue(e.target.value)}
+              />
+            </div>
           </Button>
         </ButtonGroup>
       </div>
-      <div className='workoutBottomContainer'>
-        <div>
-          <h6>How long was it? (minutes)</h6>
-          <input
-            value={duration}
-            placeholder="30"
-            onChange={e => setDuration(e.target.value)}
-            />
-        </div>
-        <div>
-          <h6>When was it?</h6>
-          <input 
-            type="date"
-            value={workoutDate}
-            onChange={e => setWorkoutDate(e.target.value)}
+      <div className="userInputContainer">
+        <h6>How many minutes?</h6>
+        <input
+          type='number'
+          value={duration}
+          placeholder="30"
+          onChange={e => setDuration(e.target.value)}
           />
-        </div>
+      </div>
+      <div className="userInputContainer">
+        <h6>When was it?</h6>
+        <input 
+          type="date"
+          value={workoutDate}
+          onChange={e => setWorkoutDate(e.target.value)}
+        />
+      </div>
+      <div className="userInputContainer">
         <Button 
           variant="dark"
           onClick={exerciseIsLoading ? null : handleSubmit}
@@ -129,13 +133,13 @@ const CreateExercise = () => {
         >
           {exerciseIsLoading ? 'Loading...' : 'Submit'}
         </Button>
-        {requestWasSuccessful && 
-        <div>
-          <p>Success!</p>
-          <FontAwesomeIcon icon={faCheck} size="2x"/>
-        </div>
-        }
       </div>
+      {requestWasSuccessful && 
+      <div>
+        <FontAwesomeIcon icon={faCheck} size="4x" color="lightgreen"/>
+        <p>Success!</p>
+      </div>
+      }
     </div>
   )
 }

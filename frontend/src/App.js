@@ -8,6 +8,9 @@ import React, { useState } from 'react';
 
 
 function App() {
+  const [activeWindow, setActiveWindow] = useState(0);
+
+  // things to fix: add component navigation keys, custom workout value not being in state, exercise logs only displaying name
 
   return (
     <div className="AppContainer">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import path from 'path'
 import { Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faCopy, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard } from '@fortawesome/free-regular-svg-icons';
 
 const userIdOnSuccess = (userId) => {
@@ -78,7 +78,6 @@ const CreateUser = () => {
     <div className="createUserContainer">
       <h2>Create Your Profile</h2>
       <div className="createUserFormContainer">
-        <FontAwesomeIcon icon={faUserCircle} size="2x"/>
         <input 
           value={user}
           placeholder="Enter your name"
@@ -92,32 +91,35 @@ const CreateUser = () => {
           {userIsLoading ? 'Loading...' : 'Submit'}
         </Button>
       </div>
-      {userId &&     
-      <div className={'userIdResponseContainer'}>
       <div>
-        <p><b>Your UserID is: </b>{userId}</p>
-      </div>
-      <div id={'userIdClipboard'} onClick={copyUserId}>
-        {!copiedToClipboard &&
+        {userId &&     
+        <div className='userIdResponseContainer'>
           <div>
-            <FontAwesomeIcon
-              icon={faClipboard}
-              size="2x"
-            />
-            <p>copy to clipboard</p>
+            User ID:
           </div>
-        }
-        {copiedToClipboard &&
-          <div color='green'>
-            <FontAwesomeIcon
-              icon={faCheck}
-              size="2x"
-            />
-            <p>Copied!</p>
+          <div>
+            {userId}
           </div>
-        }
+          <div className='copyToClipboardContainer' onClick={copyUserId}>
+            {!copiedToClipboard &&
+              <div>
+                <FontAwesomeIcon
+                  icon={faCopy}
+                  size="lg"
+                />
+              </div>
+            }
+            {copiedToClipboard &&
+              <div color='green'>
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  size="lg"
+                />
+              </div>
+            }
+          </div>
+        </div>}
       </div>
-    </div>}      
     </div>
   )
 }
