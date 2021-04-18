@@ -102,13 +102,7 @@ const CreateExercise = () => {
                 placeholder='custom'
                 id='customInputField'
                 value={customExerciseValue}
-                onChange={e => {
-                  console.log('hey');
-                  console.log(e);
-                  console.log(e.target);
-                  console.log(e.target.value);
-                  setCustomExerciseValue(e.target.value);
-                }}
+                onChange={e => setCustomExerciseValue(e.target.value)}
               />
             </div>
           </Button>

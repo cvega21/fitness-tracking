@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 function App() {
   const [activeWindow, setActiveWindow] = useState(0);
 
-  // things to fix: add component navigation keys, exercise logs only displaying name
+  // things to fix: add component navigation keys
 
   return (
     <div className="AppContainer">

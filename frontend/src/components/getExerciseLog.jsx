@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react'
 import { Button } from 'react-bootstrap';
 
 const GetExerciseLog = () => {
@@ -9,15 +7,27 @@ const GetExerciseLog = () => {
   const [toDate, setToDate] = useState('');
   const [logsLimit, setLogsLimit] = useState('');
   const [requestIsLoading, setRequestIsLoading] = useState(false);
-  const [requestWasSuccessful, setRequestWasSuccessful] = useState(false);
-  const [exerciseLogs, setExerciseLogs] = useState('');
   const [jsxExerciseLog, setJsxExerciseLog] = useState([]);
-  
-  useEffect(() => {
-    if (exerciseLogs) {
-      
+
+  const handleSubmit = async () => {
+    setRequestIsLoading(true);
+    let logUrl = new URL('http://localhost:9000/api/exercise/log');
+    let params = {'userId': userId, 'from': fromDate, 'to': toDate, 'limit': logsLimit};
+    Object.keys(params).forEach(key => logUrl.searchParams.append(key, params[key]))
+    let logResponse = await fetch(logUrl);
+    let jsonLogResponse = await logResponse.json();
+
+    if (logResponse.status === 200) {
+      clearValues();
+    } else {
+      alert('Someting went wrong.');
+      console.error(logResponse);
     }
-  })
+    
+    setJsxExerciseLog(jsonLogResponse[0].log);
+    setRequestIsLoading(false);
+    return logResponse
+  }
 
   const clearValues = () => {
     setUserId('');
@@ -26,36 +36,36 @@ const GetExerciseLog = () => {
     setLogsLimit('');
   }
 
-  const handleSubmit = async () => {
-    setRequestIsLoading(true);
-    let logUrl = new URL('http://localhost:9000/api/exercise/log');
-    let params = {'userId': userId, 'from': fromDate, 'to': toDate, 'limit': logsLimit};
-    Object.keys(params).forEach(key => logUrl.searchParams.append(key, params[key]))
+  const exerciseLogTable = () => {
+    jsxExerciseLog.forEach((record, index) => {
+      let recordDate = new Date(record.date);
+      recordDate = recordDate.toISOString().substring(0,10);
+      jsxExerciseLog[index].date = recordDate;
+      console.log(jsxExerciseLog[index].date)
+    })
+    
+    let tableValues = jsxExerciseLog.map((log, index) => (
+      <tr>
+        <td key={index}>{log.date}</td>
+        <td key={index}>{log.description}</td>
+        <td key={index}>{log.duration}</td>
+      </tr>
+      )
+    )
+    
 
-    let logResponse = await fetch(logUrl);
-    let jsonLogResponse = await logResponse.json();
-    if (logResponse.status === 200) {
-      setRequestWasSuccessful(true);
-      setTimeout(() => {
-        setRequestWasSuccessful(false);
-      }, 2000);
-      clearValues();
-    } else {
-      alert('Someting went wrong.');
-      console.error(logResponse);
-    }
-    setJsxExerciseLog(jsonLogResponse[0].log)
-    console.log(Array.isArray(jsxExerciseLog));
-    setRequestIsLoading(false);
-    // let mappedResponse = jsonLogResponse[0].log.map((log) => {
-    //          <li 
-    //           key={log._id}
-    //           value={log} />
-    // })
-    // setExerciseLogs(jsxExerciseLog);
-    // console.log(jsonLogResponse[0].log);
-    // console.log(mappedResponse);
-    return logResponse
+    if (jsxExerciseLog.length) {
+      return (
+        <table className="exerciseLogTable">
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Length</th>
+          </tr>
+          {tableValues}
+        </table>
+      )
+    } 
   }
 
   return (
@@ -99,13 +109,12 @@ const GetExerciseLog = () => {
         variant="dark"
         disabled={requestIsLoading}
         onClick={handleSubmit}
-        >Search</Button>
-      <ul className="logResponseContainer">
-        {jsxExerciseLog.map((log, index) => (
-            <li value={log} key={index}>{log.date}, {log.description}</li>
-          )
-        )}
-      </ul>
+      >
+        Search
+      </Button>
+      <div>
+        {exerciseLogTable()}
+      </div>
     </div>
   )
 }

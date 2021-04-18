@@ -131,8 +131,21 @@
   margin: 10px 0px 0px 0px;
 }
 
+/* Third Screen */
 
+.exerciseLogTable {
+  margin: 50px 0px 0px 0px;
+}
 
+.exerciseLogTable > tr > th, .exerciseLogTable > tr > td, .exerciseLogTable > tr {
+  border: solid 2px whitesmoke;
+  padding: 10px;
+}
+
+.exerciseLogTable > tr > th {
+  background-color: rgb(39, 39, 39);
+  color: rgb(255, 255, 255);
+}
 
 .workoutBottomContainer {
   /* border: dotted; */
