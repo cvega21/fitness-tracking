@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
+import confetti from '../../node_modules/canvas-confetti';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell, faBiking, faSwimmingPool, faRunning, faKeyboard, faCheck } from '@fortawesome/free-solid-svg-icons';
 
@@ -48,6 +49,9 @@ const CreateExercise = () => {
       console.error(exercisePostResponse);
     }
     setExerciseIsLoading(false);
+    confetti({
+      spread: 180
+    });
     return exercisePostResponse
   }
   

@@ -17,7 +17,6 @@ const userIdOnSuccess = (userId) => {
     <div className={'userIdResponseContainer'}>
       <div>
         <p><b>Your UserID is: </b>{userId}</p>
-
       </div>
       <div id={'userIdClipboard'} onClick={navigator.clipboard.writeText(userId)}>
         <FontAwesomeIcon
@@ -30,7 +29,7 @@ const userIdOnSuccess = (userId) => {
   )
 }
 
-const CreateUser = () => {
+const CreateUser = (props) => {
   const [user, setUser] = useState('');
   const [userIsLoading, setUserIsLoading] = useState(false);
   const [userId, setUserId] = useState('');
@@ -75,52 +74,55 @@ const CreateUser = () => {
   }
 
   return (
-    <div className="createUserContainer">
-      <h2>Create Your Profile</h2>
-      <div className="createUserFormContainer">
-        <input 
-          value={user}
-          placeholder="Enter your name"
-          onChange={handleChange}
-        />
-        <Button 
-          variant="dark"
-          onClick={userIsLoading ? null : handleSubmit}
-          disabled={userIsLoading}
-        >
-          {userIsLoading ? 'Loading...' : 'Submit'}
-        </Button>
-      </div>
-      <div>
-        {userId &&     
-        <div className='userIdResponseContainer'>
-          <div>
-            User ID:
-          </div>
-          <div>
-            {userId}
-          </div>
-          <div className='copyToClipboardContainer' onClick={copyUserId}>
-            {!copiedToClipboard &&
-              <div>
-                <FontAwesomeIcon
-                  icon={faCopy}
-                  size="lg"
-                />
-              </div>
-            }
-            {copiedToClipboard &&
-              <div color='green'>
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  size="lg"
-                />
-              </div>
-            }
-          </div>
-        </div>}
+    <div className={props.className}>
+      <div className="createUserContainer">
+        <h2>Create Your Profile</h2>
+        <div className="createUserFormContainer">
+          <input 
+            value={user}
+            placeholder="Enter your name"
+            onChange={handleChange}
+          />
+          <Button 
+            variant="dark"
+            onClick={userIsLoading ? null : handleSubmit}
+            disabled={userIsLoading}
+          >
+            {userIsLoading ? 'Loading...' : 'Submit'}
+          </Button>
+        </div>
+        <div>
+          {userId &&     
+          <div className='userIdResponseContainer'>
+            <div>
+              User ID:
+            </div>
+            <div>
+              {userId}
+            </div>
+            <div className='copyToClipboardContainer' onClick={copyUserId}>
+              {!copiedToClipboard &&
+                <div>
+                  <FontAwesomeIcon
+                    icon={faCopy}
+                    size="lg"
+                  />
+                </div>
+              }
+              {copiedToClipboard &&
+                <div color='green'>
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    size="lg"
+                  />
+                </div>
+              }
+            </div>
+          </div>}
+        </div>
       </div>
     </div>
+
   )
 }
 
