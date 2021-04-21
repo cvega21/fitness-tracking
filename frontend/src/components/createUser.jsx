@@ -1,33 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import path from 'path'
 import { Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faCopy, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { faClipboard } from '@fortawesome/free-regular-svg-icons';
-
-const userIdOnSuccess = (userId) => {
-  const copyUserId = () => {
-    navigator.clipboard.writeText(userId);
-    setTimeout(() => {
-      console.log('hi')
-    },2500);
-  }
-  
-  return (
-    <div className={'userIdResponseContainer'}>
-      <div>
-        <p><b>Your UserID is: </b>{userId}</p>
-      </div>
-      <div id={'userIdClipboard'} onClick={navigator.clipboard.writeText(userId)}>
-        <FontAwesomeIcon
-          icon={faClipboard}
-          size="2x"
-        />
-        <p>copy to clipboard</p>
-      </div>
-    </div>    
-  )
-}
+import { faCopy, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const CreateUser = (props) => {
   const [user, setUser] = useState('');

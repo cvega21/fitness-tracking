@@ -9,9 +9,7 @@ import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-s
 
 function App() {
   const [activeWindowCounter, setActiveWindowCounter] = useState(0);
-  let windowArray = [<CreateUser/>, <CreateExercise/>, <GetExerciseLog/>];
-  const [activeWindow, setActiveWindow] = useState('');
-  
+  let windowArray = [<CreateUser/>, <CreateExercise/>, <GetExerciseLog/>];  
 
   const handleNavigation = e => {
     let navigateAction;
@@ -28,16 +26,6 @@ function App() {
       navigateAction === 'previous' ? setActiveWindowCounter(activeWindowCounter - 1) : setActiveWindowCounter(activeWindowCounter + 1)
     }
   }
-
-  useEffect(() => {
-    if (activeWindowCounter === 0) {
-      //change profile to active class
-    } else if (activeWindowCounter === 1) {
-      //change create workout to active class
-    } else if (activeWindowCounter === 2) {
-      //change workout log to active class
-    }
-  }, [activeWindowCounter])
 
   return (
     <div className="AppContainer">
@@ -68,9 +56,6 @@ function App() {
           {windowArray[activeWindowCounter]}
         </div>
         <div className="componentContainer">
-          {/* <CreateUser className="third"/>
-          <CreateExercise/>
-          <GetExerciseLog/> */}
         </div>
       </div>
     </div>

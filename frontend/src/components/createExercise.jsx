@@ -44,14 +44,14 @@ const CreateExercise = () => {
         setRequestWasSuccessful(false);
       }, 3000);
       clearValues();
+      confetti({
+        spread: 180
+      });
     } else {
       alert('Someting went wrong.');
       console.error(exercisePostResponse);
     }
     setExerciseIsLoading(false);
-    confetti({
-      spread: 180
-    });
     return exercisePostResponse
   }
   
