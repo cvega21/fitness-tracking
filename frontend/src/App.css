@@ -16,6 +16,14 @@
   margin: 30px 0px 0px 0px;
 }
 
+.componentContainer {
+  /* display: flex;
+  flex-direction: row;
+  justify-content: center; */
+  position: relative;
+  overflow: hidden;
+}
+
 .componentContainer > div {
   margin: 20px 0px 50px 0px;
 }
@@ -40,6 +48,73 @@
 
 .navigationArrowsContainer > .nextButton:hover, .navigationArrowsContainer > .previousButton:hover {
   cursor: pointer;
+  color:white;
+  animation: buttonfade 0.2s;
+}
+
+@keyframes buttonfade {
+  0% {color: black}
+  100% {color:white}
+}
+
+.activeWindowFromLeft {
+  position: relative;
+  left: 0px;
+  animation: slideToCenterFromLeft 0.5s;
+}
+
+.activeWindowFromRight {
+  position: relative;
+  left: 0px;
+  animation: slideToCenterFromRight 0.5s;
+}
+
+.leftHiddenWindow {
+  position: relative;
+  left: -600px;
+  animation: slideToLeft 0.5s;
+}
+
+.rightHiddenWindow {
+  position: relative;
+  right: -600px;
+  animation: slideToRight 0.5s;
+}
+
+@keyframes slideToRight {
+  0% {
+    left: 0px;
+  }
+  100% {
+    left: 100vw;
+  }
+}
+
+@keyframes slideToLeft {
+  0% {
+    left: 0px;
+  }
+  100% {
+    left: -100vw;
+  }
+}
+
+@keyframes slideToCenterFromLeft {
+  0% {
+    left: -100vw;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+@keyframes slideToCenterFromRight {
+  0% {
+    left: 100vw;
+  }
+  100% {
+    left: 0px;
+  }
 }
 
 .createUserContainer, .createExerciseContainer, .getExerciseLogContainer {

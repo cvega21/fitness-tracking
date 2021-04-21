@@ -8,8 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
+  const windowArray = [<CreateUser/>, <CreateExercise/>, <GetExerciseLog/>];
   const [activeWindowCounter, setActiveWindowCounter] = useState(0);
-  let windowArray = [<CreateUser/>, <CreateExercise/>, <GetExerciseLog/>];  
+  const [prevActiveWindowCounter, setPrevActiveWindowCounter] = useState(0);
 
   const handleNavigation = e => {
     let navigateAction;
@@ -23,7 +24,12 @@ function App() {
     if ((activeWindowCounter === 0 && navigateAction === 'previous') || (activeWindowCounter >= 2 && navigateAction === 'next')) {
       // do nothing
     } else {
-      navigateAction === 'previous' ? setActiveWindowCounter(activeWindowCounter - 1) : setActiveWindowCounter(activeWindowCounter + 1)
+      setPrevActiveWindowCounter(activeWindowCounter);
+      if (navigateAction === 'previous') {
+        setActiveWindowCounter(activeWindowCounter - 1);
+      } else {
+        setActiveWindowCounter(activeWindowCounter + 1);
+      }
     }
   }
 
@@ -52,10 +58,13 @@ function App() {
           </div>
           }
         </div>
-        <div className="componentContainer">
+        {/* <div className="componentContainer">
           {windowArray[activeWindowCounter]}
-        </div>
+        </div> */}
         <div className="componentContainer">
+          <CreateUser className={activeWindowCounter === 0 ? 'activeWindowFromLeft' : 'leftHiddenWindow'}/>
+          <CreateExercise className={(activeWindowCounter === 1 && prevActiveWindowCounter === 0) ? 'activeWindowFromRight' : (activeWindowCounter === 1 && prevActiveWindowCounter === 2) ? 'activeWindowFromLeft' : activeWindowCounter === 2 ? 'leftHiddenWindow' : 'rightHiddenWindow'}/>
+          <GetExerciseLog className={activeWindowCounter === 2 ? 'activeWindowFromRight' : 'rightHiddenWindow'}/>
         </div>
       </div>
     </div>

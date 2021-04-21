@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap';
 
-const GetExerciseLog = () => {
+const GetExerciseLog = (props) => {
   const [userId, setUserId] = useState('');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
@@ -69,51 +69,53 @@ const GetExerciseLog = () => {
   }
 
   return (
-    <div className="getExerciseLogContainer">
-      <h2>Search Your Workout History</h2>
-      
-      <div className="userInputContainer">
-        <h6>Type Your User ID:</h6>
-        <input
-          value={userId}
-          placeholder="User ID"
-          onChange={e => setUserId(e.target.value)}
-        />      
-      </div>
-      <div className="userInputContainer">
-        <p>From:</p>
-        <input
-          type="date"
-          value={fromDate}
-          onChange={e => setFromDate(e.target.value)}
-        />    
-      </div>
-      <div className="userInputContainer">
-        <p>To:</p>
-        <input
-          type="date"
-          value={toDate}
-          onChange={e => setToDate(e.target.value)}
-        />    
-      </div>
-      <div className="userInputContainer">
-        <p>Limit:</p>
-        <input
-          type="number"
-          value={logsLimit}
-          placeholder="5"
-          onChange={e => setLogsLimit(e.target.value)}
-        />
-      </div>
-      <Button
-        variant="dark"
-        disabled={requestIsLoading}
-        onClick={handleSubmit}
-      >
-        Search
-      </Button>
-      <div>
-        {exerciseLogTable()}
+    <div className={props.className}>
+      <div className="getExerciseLogContainer">
+        <h2>Search Your Workout History</h2>
+        
+        <div className="userInputContainer">
+          <h6>Type Your User ID:</h6>
+          <input
+            value={userId}
+            placeholder="User ID"
+            onChange={e => setUserId(e.target.value)}
+          />      
+        </div>
+        <div className="userInputContainer">
+          <p>From:</p>
+          <input
+            type="date"
+            value={fromDate}
+            onChange={e => setFromDate(e.target.value)}
+          />    
+        </div>
+        <div className="userInputContainer">
+          <p>To:</p>
+          <input
+            type="date"
+            value={toDate}
+            onChange={e => setToDate(e.target.value)}
+          />    
+        </div>
+        <div className="userInputContainer">
+          <p>Limit:</p>
+          <input
+            type="number"
+            value={logsLimit}
+            placeholder="5"
+            onChange={e => setLogsLimit(e.target.value)}
+          />
+        </div>
+        <Button
+          variant="dark"
+          disabled={requestIsLoading}
+          onClick={handleSubmit}
+        >
+          Search
+        </Button>
+        <div>
+          {exerciseLogTable()}
+        </div>
       </div>
     </div>
   )
