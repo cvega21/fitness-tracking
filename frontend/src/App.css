@@ -17,9 +17,7 @@
 }
 
 .componentContainer {
-  /* display: flex;
-  flex-direction: row;
-  justify-content: center; */
+
   position: relative;
   overflow: hidden;
   display: flex;
@@ -36,7 +34,6 @@
   position: relative;
   height: 80px;
   margin: 40px 0px 0px 0px;
-  width: 
 }
 
 .navigationArrowsContainer > .previousButton {

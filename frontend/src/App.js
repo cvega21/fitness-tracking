@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
-  const windowArray = [<CreateUser/>, <CreateExercise/>, <GetExerciseLog/>];
   const [activeWindowCounter, setActiveWindowCounter] = useState(0);
   const [prevActiveWindowCounter, setPrevActiveWindowCounter] = useState(0);
   const [textUnderNavigationArrows, setTextUnderNavigationArrows] = useState(['','']);
