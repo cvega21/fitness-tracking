@@ -11,6 +11,7 @@ function App() {
   const windowArray = [<CreateUser/>, <CreateExercise/>, <GetExerciseLog/>];
   const [activeWindowCounter, setActiveWindowCounter] = useState(0);
   const [prevActiveWindowCounter, setPrevActiveWindowCounter] = useState(0);
+  const [textUnderNavigationArrows, setTextUnderNavigationArrows] = useState(['','']);
 
   const handleNavigation = e => {
     let navigateAction;
@@ -32,6 +33,14 @@ function App() {
       }
     }
   }
+  
+  useEffect(() => {
+    activeWindowCounter === 0 
+    ? setTextUnderNavigationArrows(['','Track Workout']) 
+    : activeWindowCounter === 1
+    ? setTextUnderNavigationArrows(['Create User','Workout History']) 
+    : setTextUnderNavigationArrows(['Track Workout',''])
+  }, [activeWindowCounter])
 
   return (
     <div className="AppContainer">
@@ -47,6 +56,7 @@ function App() {
               icon={faArrowAltCircleLeft}
               size="3x"
               />
+              <h5>{textUnderNavigationArrows[0].length ? textUnderNavigationArrows[0] : ''}</h5>
           </div>
           }
           {activeWindowCounter < 2 &&
@@ -54,13 +64,11 @@ function App() {
             <FontAwesomeIcon
               icon={faArrowAltCircleRight}
               size="3x"
-            />
+              />
+              <h5>{textUnderNavigationArrows[1].length ? textUnderNavigationArrows[1] : ''}</h5>
           </div>
           }
         </div>
-        {/* <div className="componentContainer">
-          {windowArray[activeWindowCounter]}
-        </div> */}
         <div className="componentContainer">
           <CreateUser className={activeWindowCounter === 0 ? 'activeWindowFromLeft' : 'leftHiddenWindow'}/>
           <CreateExercise className={(activeWindowCounter === 1 && prevActiveWindowCounter === 0) ? 'activeWindowFromRight' : (activeWindowCounter === 1 && prevActiveWindowCounter === 2) ? 'activeWindowFromLeft' : activeWindowCounter === 2 ? 'leftHiddenWindow' : 'rightHiddenWindow'}/>

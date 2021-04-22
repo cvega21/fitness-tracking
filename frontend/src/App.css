@@ -22,6 +22,8 @@
   justify-content: center; */
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .componentContainer > div {
@@ -32,24 +34,27 @@
   display: flex;
   justify-content: space-around;
   position: relative;
-  height: 60px;
+  height: 80px;
   margin: 40px 0px 0px 0px;
+  width: 
 }
 
 .navigationArrowsContainer > .previousButton {
   position: absolute;
-  left: 100px;
+  width: 200px;
+  left: 25px;
 }
 
 .navigationArrowsContainer > .nextButton {
   position: absolute;
-  right: 100px;
+  width: 200px;
+  right: 25px;
 }
 
 .navigationArrowsContainer > .nextButton:hover, .navigationArrowsContainer > .previousButton:hover {
   cursor: pointer;
   color:white;
-  animation: buttonfade 0.2s;
+  animation: buttonfade 0.25s;
 }
 
 @keyframes buttonfade {
@@ -60,25 +65,27 @@
 .activeWindowFromLeft {
   position: relative;
   left: 0px;
-  animation: slideToCenterFromLeft 0.5s;
+  animation: slideToCenterFromLeft 0.3s;
 }
 
 .activeWindowFromRight {
   position: relative;
   left: 0px;
-  animation: slideToCenterFromRight 0.5s;
+  animation: slideToCenterFromRight 0.3s;
 }
 
 .leftHiddenWindow {
   position: relative;
-  left: -600px;
-  animation: slideToLeft 0.5s;
+  left: -500px;
+  display: none;
+  animation: slideToLeft 0.3s;
 }
 
 .rightHiddenWindow {
   position: relative;
-  right: -600px;
-  animation: slideToRight 0.5s;
+  right: -500px;
+  display: none;
+  animation: slideToRight 0.3s;
 }
 
 @keyframes slideToRight {
