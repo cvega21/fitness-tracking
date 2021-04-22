@@ -117,7 +117,7 @@ const CreateExercise = (props) => {
           <input
             type='number'
             value={duration}
-            placeholder="30"
+            placeholder="Number of Minutes (e.g. 30)"
             onChange={e => setDuration(e.target.value)}
             />
         </div>

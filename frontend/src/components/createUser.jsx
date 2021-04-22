@@ -67,32 +67,38 @@ const CreateUser = (props) => {
         </div>
         <div>
           {userId &&     
-          <div className='userIdResponseContainer'>
-            <div>
-              User ID:
+          <div>
+            <div className='userIdResponseContainer'>
+              <div>
+                User ID:
+              </div>
+              <div>
+                {userId}
+              </div>
+              <div className='copyToClipboardContainer' onClick={copyUserId}>
+                {!copiedToClipboard &&
+                  <div>
+                    <FontAwesomeIcon
+                      icon={faCopy}
+                      size="lg"
+                    />
+                  </div>
+                }
+                {copiedToClipboard &&
+                  <div color='green'>
+                    <FontAwesomeIcon
+                      icon={faCheck}
+                      size="lg"
+                    />
+                  </div>
+                }
+              </div>
             </div>
             <div>
-              {userId}
+              <p>Copy the User ID, you'll need it in the next step</p>
             </div>
-            <div className='copyToClipboardContainer' onClick={copyUserId}>
-              {!copiedToClipboard &&
-                <div>
-                  <FontAwesomeIcon
-                    icon={faCopy}
-                    size="lg"
-                  />
-                </div>
-              }
-              {copiedToClipboard &&
-                <div color='green'>
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    size="lg"
-                  />
-                </div>
-              }
-            </div>
-          </div>}
+          </div>
+          }
         </div>
       </div>
     </div>
