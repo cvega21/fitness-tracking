@@ -13,15 +13,17 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 30px 0px 0px 0px;
 }
 
 .componentContainer {
-
   position: relative;
   overflow: hidden;
   display: flex;
   justify-content: center;
+  min-width: 80vw;
+  max-width: 750px;
 }
 
 .componentContainer > div {
@@ -34,18 +36,22 @@
   position: relative;
   height: 80px;
   margin: 40px 0px 0px 0px;
+  max-width: 750px;
+  min-width: 400px;
 }
 
 .navigationArrowsContainer > .previousButton {
   position: absolute;
+  left: 0px;
   width: 200px;
-  left: 25px;
+  justify-self: flex-start;
 }
 
 .navigationArrowsContainer > .nextButton {
   position: absolute;
+  right: 0px;
   width: 200px;
-  right: 25px;
+  justify-self: flex-end;
 }
 
 .navigationArrowsContainer > .nextButton:hover, .navigationArrowsContainer > .previousButton:hover {
@@ -125,14 +131,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 500px;
   border: solid 3px black;
   color: whitesmoke;
   border-radius: 10px;
   box-shadow: 10px 10px 5px rgb(56, 56, 56);
   padding: 20px;
   background-image: linear-gradient( 109.6deg,  rgba(162,2,63,1) 11.2%, rgba(231,62,68,1) 53.6%, rgba(255,129,79,1) 91.1% );
-  transition: left 0.3s ease-out
+  min-width: 300px;
+  width: 80vw;
+  max-width: 750px;
 }
 
 .test {
@@ -213,29 +220,46 @@
 
 .customExerciseButton {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   height: auto;
+  padding: 5px 0px 5px 0px
 }
 
 .customExerciseButton > input {
-  margin: 10px 0px 0px 0px;
-  width: 75px;
+  margin: 0px 0px 0px 0px;
+  width: 75%;
+}
+
+.customExerciseButton > .workoutIcon {
+  margin: 0px 20px 0px 0px;
+  width: 50px;
+  justify-self: flex-start;
 }
 
 .workoutIconsButtonGroup {
-  height: 100px;
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  min-width: 250px;
 }
 
 .workoutIconsButtonGroup > Button {
-  height: 100px;
-  padding: 15px;
+  display: flex;
+  align-items: center;
+  margin: 5px 0px 5px 0px;
+  padding: 10px;
 }
 
-.workoutIconsButtonGroup > Button > p{
-  margin: 10px 0px 0px 0px;
+.workoutIconsButtonGroup > Button > h4 {
+  margin: 0px 0px 0px 0px;
+  justify-self: flex-end;
+}
+
+.workoutIconsButtonGroup > Button > .workoutIcon {
+  margin: 0px 20px 0px 0px;
+  width: 50px;
+  justify-self: flex-start;
 }
 
 /* Third Screen */

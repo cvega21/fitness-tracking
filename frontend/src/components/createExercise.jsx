@@ -84,24 +84,24 @@ const CreateExercise = (props) => {
           <h6>Select Workout Type:</h6>
           <ButtonGroup className="workoutIconsButtonGroup">
             <Button variant="outline-light" active={selectedExerciseIndex[0]} id="0" onClick={makeButtonActive} className="gym">
-              <FontAwesomeIcon icon={faDumbbell} size="2x"/>
-              <p>Gym</p>
+              <FontAwesomeIcon icon={faDumbbell} size="2x" className='workoutIcon'/>
+              <h4>Gym</h4>
             </Button>
             <Button variant="outline-light" active={selectedExerciseIndex[1]} id="1" onClick={makeButtonActive} className="biking">
-              <FontAwesomeIcon icon={faBiking} size="2x"/>
-              <p>Biking</p>
+              <FontAwesomeIcon icon={faBiking} size="2x" className='workoutIcon'/>
+              <h4>Biking</h4>
             </Button>
             <Button variant="outline-light" active={selectedExerciseIndex[2]} id="2" onClick={makeButtonActive} className="swimming">
-              <FontAwesomeIcon icon={faSwimmingPool} size="2x"/>
-              <p>Swimming</p>
+              <FontAwesomeIcon icon={faSwimmingPool} size="2x" className='workoutIcon'/>
+              <h4>Swimming</h4>
             </Button>
             <Button variant="outline-light" active={selectedExerciseIndex[3]} id="3" onClick={makeButtonActive} className="running">
-              <FontAwesomeIcon icon={faRunning} size="2x"/>
-              <p>Running</p>
+              <FontAwesomeIcon icon={faRunning} size="2x" className='workoutIcon'/>
+              <h4>Running</h4>
             </Button>
             <Button variant="outline-light" active={selectedExerciseIndex[4]} id="4" className="other" onClick={(e) => {makeButtonActive(e); document.getElementById('customInputField').focus()} } >
               <div className="customExerciseButton">
-                <FontAwesomeIcon icon={faKeyboard} size="2x"/>
+                <FontAwesomeIcon icon={faKeyboard} size="2x" className='workoutIcon'/>
                 <input
                   placeholder='custom'
                   id='customInputField'
