@@ -18,7 +18,7 @@ const CreateUser = (props) => {
   }
   
   const getUserFromDB = async () => {
-    let userPostResponse = await fetch("http://localhost:9000/api/exercise/new-user", {
+    let userPostResponse = await fetch("https://cool-fitness-tracker.herokuapp.com/api/exercise/new-user", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

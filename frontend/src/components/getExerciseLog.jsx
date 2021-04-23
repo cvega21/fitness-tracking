@@ -11,7 +11,7 @@ const GetExerciseLog = (props) => {
 
   const handleSubmit = async () => {
     setRequestIsLoading(true);
-    let logUrl = new URL('http://localhost:9000/api/exercise/log');
+    let logUrl = new URL('https://cool-fitness-tracker.herokuapp.com/api/exercise/log');
     let params = {'userId': userId, 'from': fromDate, 'to': toDate, 'limit': logsLimit};
     Object.keys(params).forEach(key => logUrl.searchParams.append(key, params[key]))
     let logResponse = await fetch(logUrl);

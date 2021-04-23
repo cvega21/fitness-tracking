@@ -30,7 +30,7 @@ const CreateExercise = (props) => {
     if (!workoutDate) setWorkoutDate(today);
     if (customExerciseValue) finalExerciseValue = customExerciseValue
 
-    let exercisePostResponse = await fetch("http://localhost:9000/api/exercise/add", {
+    let exercisePostResponse = await fetch("https://cool-fitness-tracker.herokuapp.com/api/exercise/add", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
