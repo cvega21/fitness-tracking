@@ -68,7 +68,7 @@ const CreateUser = (props) => {
         </div>
         <div>
           {userId &&     
-          <div>
+          <div className="userIdParentContainer">
             <div className='userIdResponseContainer'>
               <div>
                 User ID:
@@ -95,7 +95,7 @@ const CreateUser = (props) => {
                 }
               </div>
             </div>
-            <div>
+            <div className='uiuxCopyUserId'>
               <p>Copy the User ID, you'll need it in the next step</p>
             </div>
           </div>
