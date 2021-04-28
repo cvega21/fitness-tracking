@@ -12,7 +12,7 @@ const GetExerciseLog = (props) => {
 
   const handleSubmit = async () => {
     setRequestIsLoading(true);
-    let logUrl = new URL(process.env.REACT_APP_APP_PATH + '/log');
+    let logUrl = new URL(process.env.REACT_APP_APP_PATH + '/users/' + userId + '/logs');
     let params = {'userId': userId, 'from': fromDate, 'to': toDate, 'limit': logsLimit};
     Object.keys(params).forEach(key => logUrl.searchParams.append(key, params[key]))
     let logResponse = await fetch(logUrl);
