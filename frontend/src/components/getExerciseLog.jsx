@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap';
+require('dotenv').config();
 
 const GetExerciseLog = (props) => {
   const [userId, setUserId] = useState('');
@@ -11,7 +12,7 @@ const GetExerciseLog = (props) => {
 
   const handleSubmit = async () => {
     setRequestIsLoading(true);
-    let logUrl = new URL('https://cool-fitness-tracker.herokuapp.com/api/exercise/log');
+    let logUrl = new URL(process.env.MONGO_URI + '/api/log');
     let params = {'userId': userId, 'from': fromDate, 'to': toDate, 'limit': logsLimit};
     Object.keys(params).forEach(key => logUrl.searchParams.append(key, params[key]))
     let logResponse = await fetch(logUrl);
@@ -56,7 +57,7 @@ const GetExerciseLog = (props) => {
 
     if (jsxExerciseLog.length) {
       return (
-        <table className="exerciseLogTable">
+        <table className='exerciseLogTable'>
           <tr>
             <th>Date</th>
             <th>Description</th>
@@ -70,44 +71,44 @@ const GetExerciseLog = (props) => {
 
   return (
     <div className={props.className}>
-      <div className="getExerciseLogContainer">
+      <div className='getExerciseLogContainer'>
         <h2>Search Your Workout History</h2>
         
-        <div className="userInputContainer">
+        <div className='userInputContainer'>
           <h6>Type Your User ID:</h6>
           <input
             value={userId}
-            placeholder="User ID"
+            placeholder='User ID'
             onChange={e => setUserId(e.target.value)}
           />      
         </div>
-        <div className="userInputContainer">
+        <div className='userInputContainer'>
           <p>From:</p>
           <input
-            type="date"
+            type='date'
             value={fromDate}
             onChange={e => setFromDate(e.target.value)}
           />    
         </div>
-        <div className="userInputContainer">
+        <div className='userInputContainer'>
           <p>To:</p>
           <input
-            type="date"
+            type='date'
             value={toDate}
             onChange={e => setToDate(e.target.value)}
           />    
         </div>
-        <div className="userInputContainer">
+        <div className='userInputContainer'>
           <p>Limit:</p>
           <input
-            type="number"
+            type='number'
             value={logsLimit}
-            placeholder="5"
+            placeholder='5'
             onChange={e => setLogsLimit(e.target.value)}
           />
         </div>
         <Button
-          variant="dark"
+          variant='dark'
           disabled={requestIsLoading}
           onClick={handleSubmit}
         >

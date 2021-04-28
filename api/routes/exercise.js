@@ -27,7 +27,7 @@ router.get('/users', function(req, res, next) {
     const allUsers = await UserModel.find({});
     let allUsersResponse = [];
     allUsers.forEach((user) => {
-      allUsersResponse.push({_id: user._id, user: user.username})
+      allUsersResponse.push({_id: user._id, username: user.username})
     })
     res.send(allUsersResponse);
   }
@@ -106,7 +106,7 @@ router.get('/log/:userId?', function(req, res, next) {
   })
 });
 
-router.post('/new-user', function(req, res, next) {
+router.post('/users', function(req, res, next) {
   let username = req.body.username;
   
   async function checkIfUserExists () {
@@ -149,7 +149,7 @@ router.post('/new-user', function(req, res, next) {
   .then((userFoundInDB) => {
     let userAlreadyExists = Object.keys(userFoundInDB).length;
     if (userAlreadyExists) {
-      let existingUserRecord = {"_id": userFoundInDB[0]['_id'], "username": userFoundInDB[0]['username']};
+      let existingUserRecord = {'_id': userFoundInDB[0]['_id'], 'username': userFoundInDB[0]['username']};
       console.log(`This user already exists in the DB: ${existingUserRecord}`);
       res.send(existingUserRecord);
     } else {
@@ -164,7 +164,7 @@ router.post('/add', function(req, res, next) {
   let description = req.body.description;
   let duration = parseInt(req.body.duration);
   let date = DateTime.fromISO(req.body.date);
-  let newExerciseRecordLog = {"_id": userId, "description": description, "duration": duration, "date": ""}
+  let newExerciseRecordLog = {'_id': userId, 'description': description, 'duration': duration, 'date': ''}
   
   if (userId && description && duration) {
     console.log('All required parameters are present.');

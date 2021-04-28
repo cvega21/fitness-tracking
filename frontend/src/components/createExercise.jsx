@@ -3,6 +3,7 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 import confetti from '../../node_modules/canvas-confetti';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell, faBiking, faSwimmingPool, faRunning, faKeyboard, faCheck } from '@fortawesome/free-solid-svg-icons';
+require('dotenv').config();
 
 const CreateExercise = (props) => {
   const [userId, setUserId] = useState('');
@@ -30,7 +31,7 @@ const CreateExercise = (props) => {
     if (!workoutDate) setWorkoutDate(today);
     if (customExerciseValue) finalExerciseValue = customExerciseValue
 
-    let exercisePostResponse = await fetch("https://cool-fitness-tracker.herokuapp.com/api/exercise/add", {
+    let exercisePostResponse = await fetch(process.env.MONGO_URI + '/api/add', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -70,38 +71,38 @@ const CreateExercise = (props) => {
 
   return (
     <div className={props.className}>
-      <div className="createExerciseContainer">
+      <div className='createExerciseContainer'>
         <h2>Track A Workout</h2>
-        <div className="userInputContainer">
+        <div className='userInputContainer'>
           <h6>Type your User ID:</h6>
           <input           
             value={userId}
-            placeholder="User ID"
+            placeholder='User ID'
             onChange={e => setUserId(e.target.value)}
           />
         </div>
-        <div className="workoutIcons">
+        <div className='workoutIcons'>
           <h6>Select Workout Type:</h6>
-          <ButtonGroup className="workoutIconsButtonGroup">
-            <Button variant="outline-dark" active={selectedExerciseIndex[0]} id="0" onClick={makeButtonActive} className="gym">
-              <FontAwesomeIcon icon={faDumbbell} size="2x" className='workoutIcon'/>
+          <ButtonGroup className='workoutIconsButtonGroup'>
+            <Button variant='outline-dark' active={selectedExerciseIndex[0]} id='0' onClick={makeButtonActive} className='gym'>
+              <FontAwesomeIcon icon={faDumbbell} size='2x' className='workoutIcon'/>
               <h4>Gym</h4>
             </Button>
-            <Button variant="outline-dark" active={selectedExerciseIndex[1]} id="1" onClick={makeButtonActive} className="biking">
-              <FontAwesomeIcon icon={faBiking} size="2x" className='workoutIcon'/>
+            <Button variant='outline-dark' active={selectedExerciseIndex[1]} id='1' onClick={makeButtonActive} className='biking'>
+              <FontAwesomeIcon icon={faBiking} size='2x' className='workoutIcon'/>
               <h4>Biking</h4>
             </Button>
-            <Button variant="outline-dark" active={selectedExerciseIndex[2]} id="2" onClick={makeButtonActive} className="swimming">
-              <FontAwesomeIcon icon={faSwimmingPool} size="2x" className='workoutIcon'/>
+            <Button variant='outline-dark' active={selectedExerciseIndex[2]} id='2' onClick={makeButtonActive} className='swimming'>
+              <FontAwesomeIcon icon={faSwimmingPool} size='2x' className='workoutIcon'/>
               <h4>Swimming</h4>
             </Button>
-            <Button variant="outline-dark" active={selectedExerciseIndex[3]} id="3" onClick={makeButtonActive} className="running">
-              <FontAwesomeIcon icon={faRunning} size="2x" className='workoutIcon'/>
+            <Button variant='outline-dark' active={selectedExerciseIndex[3]} id='3' onClick={makeButtonActive} className='running'>
+              <FontAwesomeIcon icon={faRunning} size='2x' className='workoutIcon'/>
               <h4>Running</h4>
             </Button>
-            <Button variant="outline-dark" active={selectedExerciseIndex[4]} id="4" className="other" onClick={(e) => {makeButtonActive(e); document.getElementById('customInputField').focus()} } >
-              <div className="customExerciseButton">
-                <FontAwesomeIcon icon={faKeyboard} size="2x" className='workoutIcon'/>
+            <Button variant='outline-dark' active={selectedExerciseIndex[4]} id='4' className='other' onClick={(e) => {makeButtonActive(e); document.getElementById('customInputField').focus()} } >
+              <div className='customExerciseButton'>
+                <FontAwesomeIcon icon={faKeyboard} size='2x' className='workoutIcon'/>
                 <input
                   placeholder='custom'
                   id='customInputField'
@@ -112,26 +113,26 @@ const CreateExercise = (props) => {
             </Button>
           </ButtonGroup>
         </div>
-        <div className="userInputContainer">
+        <div className='userInputContainer'>
           <h6>How many minutes?</h6>
           <input
             type='number'
             value={duration}
-            placeholder="Number of Minutes (e.g. 30)"
+            placeholder='Number of Minutes (e.g. 30)'
             onChange={e => setDuration(e.target.value)}
             />
         </div>
-        <div className="userInputContainer">
+        <div className='userInputContainer'>
           <h6>When was it?</h6>
           <input 
-            type="date"
+            type='date'
             value={workoutDate}
             onChange={e => setWorkoutDate(e.target.value)}
           />
         </div>
-        <div className="userInputContainer">
+        <div className='userInputContainer'>
           <Button 
-            variant="dark"
+            variant='dark'
             onClick={exerciseIsLoading ? null : handleSubmit}
             disabled={exerciseIsLoading}
           >
@@ -140,7 +141,7 @@ const CreateExercise = (props) => {
         </div>
         {requestWasSuccessful && 
         <div>
-          <FontAwesomeIcon icon={faCheck} size="4x" color="lightgreen"/>
+          <FontAwesomeIcon icon={faCheck} size='4x' color='lightgreen'/>
           <p>Success!</p>
         </div>
         }

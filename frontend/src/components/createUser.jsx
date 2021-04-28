@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy, faCheck } from '@fortawesome/free-solid-svg-icons';
+require('dotenv').config();
 
 const CreateUser = (props) => {
   const [user, setUser] = useState('');
@@ -19,7 +20,7 @@ const CreateUser = (props) => {
   }
   
   const getUserFromDB = async () => {
-    let userPostResponse = await fetch("https://cool-fitness-tracker.herokuapp.com/api/exercise/new-user", {
+    let userPostResponse = await fetch(process.env.MONGO_URI + '/api/users', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -50,16 +51,16 @@ const CreateUser = (props) => {
 
   return (
     <div className={props.className}>
-      <div className="createUserContainer">
+      <div className='createUserContainer'>
         <h2>Create Your Profile</h2>
-        <div className="createUserFormContainer">
+        <div className='createUserFormContainer'>
           <input 
             value={user}
-            placeholder="Enter your name"
+            placeholder='Enter your name'
             onChange={handleChange}
           />
           <Button 
-            variant="dark"
+            variant='dark'
             onClick={userIsLoading ? null : handleSubmit}
             disabled={userIsLoading}
           >
@@ -68,7 +69,7 @@ const CreateUser = (props) => {
         </div>
         <div>
           {userId &&     
-          <div className="userIdParentContainer">
+          <div className='userIdParentContainer'>
             <div className='userIdResponseContainer'>
               <div>
                 User ID:
@@ -81,7 +82,7 @@ const CreateUser = (props) => {
                   <div>
                     <FontAwesomeIcon
                       icon={faCopy}
-                      size="lg"
+                      size='lg'
                     />
                   </div>
                 }
@@ -89,7 +90,7 @@ const CreateUser = (props) => {
                   <div color='green'>
                     <FontAwesomeIcon
                       icon={faCheck}
-                      size="lg"
+                      size='lg'
                     />
                   </div>
                 }
