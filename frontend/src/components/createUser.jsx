@@ -20,7 +20,8 @@ const CreateUser = (props) => {
   }
   
   const getUserFromDB = async () => {
-    let userPostResponse = await fetch(process.env.MONGO_URI + '/api/users', {
+    let userPostUrl = process.env.REACT_APP_APP_PATH + '/users';
+    let userPostResponse = await fetch(userPostUrl, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

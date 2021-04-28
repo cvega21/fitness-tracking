@@ -30,14 +30,15 @@ const CreateExercise = (props) => {
     let finalExerciseValue = actualExerciseType;
     if (!workoutDate) setWorkoutDate(today);
     if (customExerciseValue) finalExerciseValue = customExerciseValue
+    let exerciseUrl = process.env.REACT_APP_APP_PATH + '/users/' + userId + '/exercises';
 
-    let exercisePostResponse = await fetch(process.env.MONGO_URI + '/api/add', {
+    let exercisePostResponse = await fetch(exerciseUrl, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({'userId': userId, 'description': finalExerciseValue, 'date': workoutDate, 'duration': duration})
+      body: JSON.stringify({'description': finalExerciseValue, 'date': workoutDate, 'duration': duration})
     })
     if (exercisePostResponse.status === 200) {
       setRequestWasSuccessful(true);
