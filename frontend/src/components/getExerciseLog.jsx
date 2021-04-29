@@ -13,7 +13,7 @@ const GetExerciseLog = (props) => {
   const handleSubmit = async () => {
     setRequestIsLoading(true);
     let logUrl = new URL(process.env.REACT_APP_APP_PATH + '/users/' + userId + '/logs');
-    let params = {'userId': userId, 'from': fromDate, 'to': toDate, 'limit': logsLimit};
+    let params = {'from': fromDate, 'to': toDate, 'limit': logsLimit};
     Object.keys(params).forEach(key => logUrl.searchParams.append(key, params[key]))
     let logResponse = await fetch(logUrl);
     let jsonLogResponse = await logResponse.json();
@@ -25,7 +25,7 @@ const GetExerciseLog = (props) => {
       console.error(logResponse);
     }
     
-    setJsxExerciseLog(jsonLogResponse[0].log);
+    setJsxExerciseLog(jsonLogResponse.log);
     setRequestIsLoading(false);
     return logResponse
   }

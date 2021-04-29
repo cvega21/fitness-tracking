@@ -175,7 +175,7 @@ router.get('/users/:_id/logs', function(req, res, next) {
   if (from && from <= today) {
     // query is good
   } else {
-    from = new Date('2000-01-01');
+    from = new Date('1980-01-01');
   }
   
   if (to && to >= from) {
@@ -219,7 +219,7 @@ router.get('/users/:_id/logs', function(req, res, next) {
       userFoundInDB[0].log = newExerciseLog;
       console.log(`originalExerciseLog: ${exerciseLog}`);
       console.log(`newExerciseLog: ${newExerciseLog}`);
-      res.send(userFoundInDB);
+      res.send(userFoundInDB[0]);
     } else {
       res.send(`userId: ${userId} was not found in the database!`);
     }
