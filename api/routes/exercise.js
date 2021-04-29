@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
-const { DateTime } = require('luxon');
 require('dotenv').config();
 
 const userSchema = new mongoose.Schema({
@@ -96,7 +95,8 @@ router.post('/users/:_id/exercises', function(req, res, next) {
   let userId = new String(req.path).split('/')[2];
   let description = req.body.description;
   let duration = parseInt(req.body.duration);
-  let date = DateTime.fromISO(req.body.date);
+  let date = new Date(req.body.date);
+  let today = new Date();
   let newExerciseRecordLog = {'_id': userId, 'description': description, 'duration': duration, 'date': ''}
   
   if (userId && description && duration) {
@@ -109,13 +109,13 @@ router.post('/users/:_id/exercises', function(req, res, next) {
   }
 
   console.log('Validating date...');
-  if (date.toISODate() && date.toISODate() <= DateTime.now().toISODate()) {
+  if (date && date <= today) {
     console.log(`${date} is a valid date`);
-    console.log(date.toISODate())
-    newExerciseRecordLog.date = date.toISODate();
+    console.log(date.toDateString())
+    newExerciseRecordLog.date = date.toDateString();
   } else {
-    console.log(`Date was either undefined or not a valid date. Using today's date: ${DateTime.now().toISODate()}`)
-    newExerciseRecordLog.date = DateTime.now().toISODate();
+    console.log(`Date was either undefined or not a valid date. Using today's date: ${today.toDateString()}`)
+    newExerciseRecordLog.date = today.toDateString();
   }
 
   console.log(`Exercise record to be added in log:`)
@@ -160,27 +160,28 @@ router.post('/users/:_id/exercises', function(req, res, next) {
 
 router.get('/users/:_id/logs', function(req, res, next) {
   let userId = new String(req.path).split('/')[2];
-  let from = DateTime.fromISO(req.query.from);
-  let to = DateTime.fromISO(req.query.to);
+  let from = new Date(req.query.from);
+  let to = new Date(req.query.to);
   let limit = Infinity;
-
+  let today = new Date();
+  
   console.log('Validating parameters...')
   if (parseInt(req.query.limit)) {
     limit = req.query.limit;
   } else {
     limit = Infinity;
   }
-
-  if (from.toISODate() && from.toISODate() <= DateTime.now().toISODate()) {
+  
+  if (from && from <= today) {
     // query is good
   } else {
-    from = DateTime.fromISO('1900-01-01');
+    from = new Date('2000-01-01');
   }
-
-  if (to.toISODate()) {
+  
+  if (to && to >= from) {
     // query is good
   } else {
-    to = DateTime.now();
+    to = today;
   }
 
   console.log(`final parameters: limit: ${limit}, from: ${from}, to: ${to}`)
@@ -208,10 +209,10 @@ router.get('/users/:_id/logs', function(req, res, next) {
       let i = 0;
       while (i < limit && i < exerciseLog.length) {
         let dateFromLog = new Date(exerciseLog[i].date);
-        dateFromLog = dateFromLog.toISOString();
-        dateFromLog = DateTime.fromISO(dateFromLog);
         if (dateFromLog > from && dateFromLog < to) {
           newExerciseLog.push(exerciseLog[i]);
+        } else {
+          console.log(`dateFromLog ${dateFromLog} is apparently not >= from (${from}) or <= to (${to})`)
         }
         i++;        
       }
