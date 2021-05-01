@@ -2,6 +2,8 @@
 
 A small, responsive full-stack app to keep track of your workouts. Built for FreeCodeCamp's APIs and Microservices certification [(completed in April 2021)](https://www.freecodecamp.org/certification/cvega21/apis-and-microservices).
 
+<img src="https://user-images.githubusercontent.com/54726618/116772956-1a2c9b00-aa18-11eb-8f0f-22783a2dbdfe.gif" width="450" height="500">
+
 ## How To Use
 1. Type your name and press submit to create a unique user ID. 
       - If name has already been submitted, backend will return its corresponding user ID
