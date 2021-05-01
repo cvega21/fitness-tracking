@@ -42,5 +42,6 @@ For future refactoring, which might or might not ever happen, the following thin
 - Looks like triggering the calls from front end with useEffect might be resulting in fetch() being called more than once for the same logical action - this was seen in the network requests part of the console. Need to check why this is happening, on which calls it happens, and how to implement the ux flags in a different way if it's caused by useEffect
 - Create a reusable component for the active window, which will then be 'implemented' by each window (e.g. create user, submit workout, search history). Also could create components for the input forms, as well as for the buttons which would remove dependency on Bootstrap
 - Fix the date input forms' width and copy to clipboard on mobile
+    - Looks like copy to clipboard might have also broken on web
 - Make application more lightweight by removing Bootstrap and using Font Awesome from CDN
 - Reduce the size of CSS by grouping together classes with the same attributes
