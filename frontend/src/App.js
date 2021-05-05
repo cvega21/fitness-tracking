@@ -45,8 +45,8 @@ function App() {
     <div className="AppContainer">
       <div className="App">
         <div>
-          <h1>Exercise Tracker</h1>
-          <p>By: Christian Vega-Munguia 💪</p>
+          <h1>Fitness Tracker</h1>
+          <p>By: <a href="https://github.com/cvega21">Christian Vega-Munguia 💪</a></p>
         </div>
         <div className="navigationArrowsContainer">
           {activeWindowCounter > 0 && 
