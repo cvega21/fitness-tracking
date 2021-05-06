@@ -73,33 +73,33 @@ const CreateExercise = (props) => {
   return (
     <div className={props.className}>
       <div className='createExerciseContainer'>
-        <h2>Track A Workout</h2>
+        <h1>Track A Workout</h1>
         <div className='userInputContainer'>
-          <h6>Type your User ID:</h6>
+          <label>Type your User ID:</label>
           <input           
             value={userId}
             placeholder='User ID'
             onChange={e => setUserId(e.target.value)}
-          />
+            />
         </div>
         <div className='workoutIcons'>
-          <h6>Select Workout Type:</h6>
+          <label>Select Workout Type:</label>
           <ButtonGroup className='workoutIconsButtonGroup'>
             <Button variant='outline-dark' active={selectedExerciseIndex[0]} id='0' onClick={makeButtonActive} className='gym'>
               <FontAwesomeIcon icon={faDumbbell} size='2x' className='workoutIcon'/>
-              <h4>Gym</h4>
+              <h2>Gym</h2>
             </Button>
             <Button variant='outline-dark' active={selectedExerciseIndex[1]} id='1' onClick={makeButtonActive} className='biking'>
               <FontAwesomeIcon icon={faBiking} size='2x' className='workoutIcon'/>
-              <h4>Biking</h4>
+              <h2>Biking</h2>
             </Button>
             <Button variant='outline-dark' active={selectedExerciseIndex[2]} id='2' onClick={makeButtonActive} className='swimming'>
               <FontAwesomeIcon icon={faSwimmingPool} size='2x' className='workoutIcon'/>
-              <h4>Swimming</h4>
+              <h2>Swimming</h2>
             </Button>
             <Button variant='outline-dark' active={selectedExerciseIndex[3]} id='3' onClick={makeButtonActive} className='running'>
               <FontAwesomeIcon icon={faRunning} size='2x' className='workoutIcon'/>
-              <h4>Running</h4>
+              <h2>Running</h2>
             </Button>
             <Button variant='outline-dark' active={selectedExerciseIndex[4]} id='4' className='other' onClick={(e) => {makeButtonActive(e); document.getElementById('customInputField').focus()} } >
               <div className='customExerciseButton'>
@@ -115,7 +115,7 @@ const CreateExercise = (props) => {
           </ButtonGroup>
         </div>
         <div className='userInputContainer'>
-          <h6>How many minutes?</h6>
+          <label>How many minutes?</label>
           <input
             type='number'
             value={duration}
@@ -124,7 +124,7 @@ const CreateExercise = (props) => {
             />
         </div>
         <div className='userInputContainer'>
-          <h6>When was it?</h6>
+          <label>When was it?</label>          
           <input 
             type='date'
             value={workoutDate}

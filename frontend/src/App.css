@@ -175,6 +175,12 @@ html,body{
   height: 38px;
 }
 
+label {
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+}
+
 .userIdParentContainer {
   display: flex;
   flex-direction: column;
@@ -266,9 +272,10 @@ html,body{
   padding: 10px;
 }
 
-.workoutIconsButtonGroup > Button > h4 {
+.workoutIconsButtonGroup > Button > h2 {
   margin: 0px 0px 0px 0px;
   justify-self: flex-end;
+  font-size: 30px;
 }
 
 .workoutIconsButtonGroup > Button > .workoutIcon {
