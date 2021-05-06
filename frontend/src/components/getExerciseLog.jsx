@@ -72,10 +72,9 @@ const GetExerciseLog = (props) => {
   return (
     <div className={props.className}>
       <div className='getExerciseLogContainer'>
-        <h2>Search Your Workout History</h2>
-        
+        <h1>Search Your Workout History</h1>
         <div className='userInputContainer'>
-          <h6>Type Your User ID:</h6>
+          <label>Type Your User ID:</label>          
           <input
             value={userId}
             placeholder='User ID'
@@ -83,7 +82,7 @@ const GetExerciseLog = (props) => {
           />      
         </div>
         <div className='userInputContainer'>
-          <p>From:</p>
+          <label>From:</label>          
           <input
             type='date'
             value={fromDate}
@@ -91,15 +90,15 @@ const GetExerciseLog = (props) => {
           />    
         </div>
         <div className='userInputContainer'>
-          <p>To:</p>
+          <label>To:</label>          
           <input
             type='date'
             value={toDate}
             onChange={e => setToDate(e.target.value)}
-          />    
+            />    
         </div>
         <div className='userInputContainer'>
-          <p>Limit:</p>
+          <label>Limit:</label>          
           <input
             type='number'
             value={logsLimit}

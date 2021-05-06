@@ -53,11 +53,12 @@ const CreateUser = (props) => {
   return (
     <div className={props.className}>
       <div className='createUserContainer'>
-        <h2>Create Your Profile</h2>
+        <h1>Create Your Profile</h1>
         <div className='createUserFormContainer'>
+          <label>Enter your name:</label>
           <input 
             value={user}
-            placeholder='Enter your name'
+            placeholder='John Appleseed'
             onChange={handleChange}
           />
           <Button 
