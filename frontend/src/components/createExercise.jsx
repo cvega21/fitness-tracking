@@ -73,10 +73,11 @@ const CreateExercise = (props) => {
   return (
     <div className={props.className}>
       <div className='createExerciseContainer'>
-        <h1>Track A Workout</h1>
+        <h2>Track A Workout</h2>
         <div className='userInputContainer'>
           <label>Type your User ID:</label>
-          <input           
+          <input
+            name="username"
             value={userId}
             placeholder='User ID'
             onChange={e => setUserId(e.target.value)}
@@ -105,6 +106,7 @@ const CreateExercise = (props) => {
               <div className='customExerciseButton'>
                 <FontAwesomeIcon icon={faKeyboard} size='2x' className='workoutIcon'/>
                 <input
+                  name="customExerciseValue"
                   placeholder='custom'
                   id='customInputField'
                   value={customExerciseValue}
@@ -117,6 +119,7 @@ const CreateExercise = (props) => {
         <div className='userInputContainer'>
           <label>How many minutes?</label>
           <input
+            name='number'
             type='number'
             value={duration}
             placeholder='Number of Minutes (e.g. 30)'
@@ -126,6 +129,7 @@ const CreateExercise = (props) => {
         <div className='userInputContainer'>
           <label>When was it?</label>          
           <input 
+            name='date'
             type='date'
             value={workoutDate}
             onChange={e => setWorkoutDate(e.target.value)}

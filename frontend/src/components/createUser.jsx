@@ -53,10 +53,11 @@ const CreateUser = (props) => {
   return (
     <div className={props.className}>
       <div className='createUserContainer'>
-        <h1>Create Your Profile</h1>
+        <h2>Create Your Profile</h2>
         <div className='createUserFormContainer'>
           <label>Enter your name:</label>
           <input 
+            name="username"
             value={user}
             placeholder='John Appleseed'
             onChange={handleChange}
