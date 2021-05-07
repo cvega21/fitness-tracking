@@ -76,6 +76,7 @@ const GetExerciseLog = (props) => {
         <div className='userInputContainer'>
           <label>Type Your User ID:</label>          
           <input
+            name='username'
             value={userId}
             placeholder='User ID'
             onChange={e => setUserId(e.target.value)}
@@ -84,6 +85,7 @@ const GetExerciseLog = (props) => {
         <div className='userInputContainer'>
           <label>From:</label>          
           <input
+            name='dateFrom'
             type='date'
             value={fromDate}
             onChange={e => setFromDate(e.target.value)}
@@ -92,6 +94,7 @@ const GetExerciseLog = (props) => {
         <div className='userInputContainer'>
           <label>To:</label>          
           <input
+            name='dateTo'
             type='date'
             value={toDate}
             onChange={e => setToDate(e.target.value)}
@@ -100,6 +103,7 @@ const GetExerciseLog = (props) => {
         <div className='userInputContainer'>
           <label>Limit:</label>          
           <input
+            name='logsLimit'
             type='number'
             value={logsLimit}
             placeholder='5'

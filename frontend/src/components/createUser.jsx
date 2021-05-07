@@ -57,6 +57,7 @@ const CreateUser = (props) => {
         <div className='createUserFormContainer'>
           <label>Enter your name:</label>
           <input 
+            name="username"
             value={user}
             placeholder='John Appleseed'
             onChange={handleChange}
