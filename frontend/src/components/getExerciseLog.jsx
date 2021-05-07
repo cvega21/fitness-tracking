@@ -72,7 +72,7 @@ const GetExerciseLog = (props) => {
   return (
     <div className={props.className}>
       <div className='getExerciseLogContainer'>
-        <h1>Search Your Workout History</h1>
+        <h2>Search Your Workout History</h2>
         <div className='userInputContainer'>
           <label>Type Your User ID:</label>          
           <input

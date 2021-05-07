@@ -73,7 +73,7 @@ const CreateExercise = (props) => {
   return (
     <div className={props.className}>
       <div className='createExerciseContainer'>
-        <h1>Track A Workout</h1>
+        <h2>Track A Workout</h2>
         <div className='userInputContainer'>
           <label>Type your User ID:</label>
           <input           

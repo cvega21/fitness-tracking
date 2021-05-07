@@ -21,6 +21,25 @@ html,body{
   margin: 30px 0px 0px 0px;
 }
 
+.appTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.appTitle > h1 {
+  font-size: 80px;
+}
+
+.authorContainer {
+  background-color: white;
+  border-radius: 30px;
+  border: 1px solid;
+  padding: 4px;
+  margin-top: 20px;
+  width: 50%;
+}
+
 .componentContainer {
   position: relative;
   overflow: hidden;

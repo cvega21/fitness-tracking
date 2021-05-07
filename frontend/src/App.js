@@ -44,9 +44,9 @@ function App() {
   return (
     <div className="AppContainer">
       <div className="App">
-        <div>
+        <div className="appTitle">
           <h1>Fitness Tracker</h1>
-          <p>By: <a href="https://github.com/cvega21">Christian Vega-Munguia 💪</a></p>
+          <p className="authorContainer"><b>By: <a href="https://github.com/cvega21">Christian Vega-Munguia 💪</a></b></p>
         </div>
         <div className="navigationArrowsContainer">
           {activeWindowCounter > 0 && 
