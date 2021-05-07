@@ -47,6 +47,7 @@ html,body{
   justify-content: center;
   min-width: 80vw;
   max-width: 750px;
+  margin: 0px 0px 0px 0px;
 }
 
 .componentContainer > div {
@@ -58,7 +59,7 @@ html,body{
   justify-content: space-around;
   position: relative;
   height: 80px;
-  margin: 40px 0px 0px 0px;
+  margin: 75px 0px -10px 0px;
   max-width: 750px;
   min-width: 400px;
 }
@@ -68,6 +69,8 @@ html,body{
   left: 0px;
   width: 200px;
   justify-self: flex-start;
+  background-color: transparent;
+  border: none;
 }
 
 .navigationArrowsContainer > .nextButton {
@@ -75,6 +78,8 @@ html,body{
   right: 0px;
   width: 200px;
   justify-self: flex-end;
+  background-color: transparent;
+  border: none;
 }
 
 .navigationArrowsContainer > .nextButton:hover, .navigationArrowsContainer > .previousButton:hover {

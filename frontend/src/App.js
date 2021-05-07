@@ -50,22 +50,22 @@ function App() {
         </div>
         <div className="navigationArrowsContainer">
           {activeWindowCounter > 0 && 
-          <div onClick={handleNavigation} className="previousButton">
+          <button onClick={handleNavigation} className="previousButton" tabindex="0">
             <FontAwesomeIcon
               icon={faArrowAltCircleLeft}
               size="3x"
               />
               <h5>{textUnderNavigationArrows[0].length ? textUnderNavigationArrows[0] : ''}</h5>
-          </div>
+          </button>
           }
           {activeWindowCounter < 2 &&
-          <div onClick={handleNavigation} className="nextButton">
+          <button onClick={handleNavigation} className="nextButton" tabindex="0">
             <FontAwesomeIcon
               icon={faArrowAltCircleRight}
               size="3x"
               />
               <h5>{textUnderNavigationArrows[1].length ? textUnderNavigationArrows[1] : ''}</h5>
-          </div>
+          </button>
           }
         </div>
         <div className="componentContainer">
